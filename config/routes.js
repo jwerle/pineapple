@@ -9,17 +9,26 @@ router.useMethods(['GET', 'POST', 'PUT', 'DEL']);
 router.setDefaultAction('index');
 
 /**
-  @routes user
-**/
+  Exmaple user routes
+    Default action for bound results is
+    set by router.setDefaultAction(action)
+
+// Catch all for '/user'
 router.all('/user', 'user.User');
+// OR
+router.create('*', '/user', 'user.User');
 
-/**
-  Return user information by uid
-
-  @route user/:uid
-  @method GET
-**/
+// Get user by uuid with a GET request
 router.get('/user/:uuid', 'user.User.get');
+// OR
+router.create('GET', '/user/:uuid', 'user.User.get');
 
+// Basic CRUD methods which wrap router.create(method, path, bound);
+router.post('/user', 'user.User.create');
+router.get('/user/:uuid', 'user.User.get');
+router.put('/user/:uuid', 'user.User.update');
+router.del('/user/:uuid', 'user.User.delete');
+
+**/
 
 module.exports = router.routes;
