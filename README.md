@@ -1,4 +1,5 @@
-pineapple-v3-api
+pineapple(1)
 ===============
 
-MoovAtom v3 API
+A very simple and extendable RESTful API framework. Includes routing and a model wrapper around MongoDB. 
+It currently wraps Restify and Mongoose with an interface.
