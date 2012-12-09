@@ -1,0 +1,31 @@
+{
+  "name": "pineapple-api",
+  "version": "3.0.0",
+  "description": "RESTful API for the MoovAtom Service",
+  "keywords": [
+    "pineapple",
+    "api"
+  ],
+  "preferGlobal" : true,
+  "author": "Jospeh Werle <joseph.werle@gmail.com>",
+   "bin" : {
+    "pineapple" : "./bin/pineapple.js"
+  },
+  "dependencies": {
+    "restify"       : ">= 1.4.4",
+    "utilities"     : "0.0.x",
+    "colors"        : "0.6.0-1",
+    "mongoose"      : "3.4.0",
+    "repl-console"  : "0.4.x",
+    "passport"      : "0.1.x",
+    "jake"          : "0.5.8",
+    "node-uuid"     : "1.4.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pineapple/pineapple-v3-api.git"
+  },
+  "engines": {
+    "node": ">= 0.8"
+  }
+}

@@ -1,0 +1,3 @@
+[submodule "deps/parseopts"]
+	path = deps/parseopts
+	url = git://github.com/mde/node-parseopts.git

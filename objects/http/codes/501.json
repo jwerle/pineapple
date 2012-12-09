@@ -1,0 +1,7 @@
+{
+  "code"    : 501,
+  "status"  : false,
+  "method"  : "${method}",
+  "resource": "${resource}", 
+  "message" : "Method '${method} is not implemented by resource ${resource}."
+}

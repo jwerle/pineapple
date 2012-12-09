@@ -1,0 +1,5 @@
+{
+  "code"    : 404,
+  "status"  : false,
+  "message" : "${resource} was not found."
+}
