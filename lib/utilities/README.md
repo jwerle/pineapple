@@ -7,9 +7,6 @@ Utilities
 /**
  *  Pineapple utilitiy object
  * 
- * Extends Mde's utility object. 
- *  See here - https://github.com/mde/utilities
- * 
  * @public
  * @object
  * */
@@ -22,13 +19,20 @@ _____
 Loader Prototype.
   - ```directory``` {String} The directory to load
   - ```extensions``` {Array} The extensions to match when parsing a directory. **Default** is ```.js```
-  - ```excluded``` {Array} Excluded directory or file names
+  - ```excluded``` {Array} Excluded directory or file names **Default** is ```index```
 
 #### API
 ### *static* Loader.load ```function(directory, extensions, excluded)```
 See **Loader#load**
 
 Go to the [code](https://github.com/moovatom/pineapple/blob/master/lib/utilities/Loader.js#L23)
+
+##### Example
+-----
+```js
+var lib = pineapple.loader.Loader.load('../lib', ['.js'], ['index']).lib;
+```
+
 _____
 
 ### Loader#load 
@@ -40,6 +44,39 @@ Recursively requires a directory tree in an object.
   - ```excluded``` {Array} Excluded directory or file names
 
 Go to the [code](https://github.com/moovatom/pineapple/blob/master/lib/utilities/Loader.js#L27)
+
+##### Example
+-----
+```js
+/**
+  * Current file app/plugins/index.js
+  * Current file app/plugins/OpenGraph.js
+  * Current file app/plugins/Redis.js
+  * Current file app/plugins/TwitterLib.js
+  *
+  * Current file is index.js
+  *
+  **/
+
+var loader = new pineapple.loader.Loader(__dirname) // Default extensions are .js and default exclusion is index
+
+var plugins = loader.load().plugins;
+console.log(plugins)
+/** 
+  * >>> {
+  *       OpenGraph : {
+  *         connect : [Function]
+  *       },
+  *
+  *       Reddis : [Function],
+  *
+  *       TwitterLib : [Object]
+  *     }
+  *
+  **/
+
+```
+
 _____
 
 ## [inherit](https://github.com/moovatom/pineapple/blob/master/lib/utilities/inherit.js#L5) 
