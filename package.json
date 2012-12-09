@@ -1,10 +1,14 @@
 {
   "name": "pineapple-api",
   "version": "3.0.0",
-  "description": "RESTful API for the MoovAtom Service",
+  "description": "A very simple and extendable RESTful API framework. Includes routing and a model wrapper around MongoDB.",
   "keywords": [
     "pineapple",
-    "api"
+    "api",
+    "restful",
+    "mongodb",
+    "mongoose",
+    "restify"
   ],
   "preferGlobal" : true,
   "author": "Jospeh Werle <joseph.werle@gmail.com>",
@@ -23,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/pineapple/pineapple-v3-api.git"
+    "url": "git://github.com/moovatom/pineapple.git"
   },
   "engines": {
     "node": ">= 0.8"
