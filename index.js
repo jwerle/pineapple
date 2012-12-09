@@ -1,1 +1,1 @@
-module.exports = require('lib/pineapple');
+module.exports = require('./lib/pineapple');
