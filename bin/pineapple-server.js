@@ -9,7 +9,7 @@ module.exports.call = function(){
     , db        = dbConfig.database
 
   pineapple.api.create(pineapple.config.server.config).bindRoutes(pineapple.routes).listen(port, function(){
-    console.log("MoovAtom API Server started. Listening on port ".green + new String(port).cyan);
+    console.log("Pineapple API Server started. Listening on port ".green + new String(port).cyan);
   });
 
   pineapple._db = pineapple.db.connect(dbConfig.host, db);
