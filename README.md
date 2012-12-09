@@ -8,15 +8,9 @@ It currently wraps Restify and Mongoose with an interface.
 $ git clone git@github.com:moovatom/pineapple.git; cd pineapple; sudo ./scripts/install
 ```
 
-### Usage
-```
-$ pineapple server
-Pineapple API Server started. Listening on port 4000
-```
-
 ### Configuration
 ```js
-/**
+/** config/environment.js
  * Environment - Default confgiuration
  * 
  * Access it at pineapple.config
@@ -39,20 +33,20 @@ Pineapple API Server started. Listening on port 4000
   "env" : "development"
 }
 
-/**
+/** 
  * Development|Production|Other
  * 
  * Your environment is specified in the
  * environment config with the "env" property
  * */
-// development
+// config/development.js
 {
   "database" : {
     "database" : "pineapple_development"
   }
 }
 
-// production
+// config/production.js
 {
   "database" : {
     "database" : "pineapple_production"
@@ -63,23 +57,32 @@ Pineapple API Server started. Listening on port 4000
 
 ### Routes
 ```js
-// Catch all for '/user'
-router.all('/user', 'user.User');
-// OR
-router.create('*', '/user', 'user.User');
+const API_VERSION = parseInt(pineapple.config.server.config.version);
 
-// Get user by uuid with a GET request
-router.get('/user/:uuid', 'user.User.get');
-// OR
-router.create('GET', '/user/:uuid', 'user.User.get');
+var router = new pineapple.router.Router()
 
-// Basic CRUD methods which wrap router.create(method, path, bound);
-router.post('/user', 'user.User.create');
-router.get('/user/:uuid', 'user.User.get');
-router.put('/user/:uuid', 'user.User.update');
-router.del('/user/:uuid', 'user.User.delete');
+router.useMethods(['GET', 'POST', 'PUT', 'DEL']);
+router.setDefaultAction('index');
+
+router.create('GET', '/', 'pineapple.Api.index');
+router.get('/:resource', 'pineapple.Api'); // defaults to pineapple.Api.index
 ```
 
+### Usage
+```
+$ pineapple server
+Pineapple API Server started. Listening on port 4000
+```
+
+```
+$ curl -i -L http://localhost:4000/
+{"code":200,"status":true,"data":{"method":"GET","resource":"/"}}
+```
+
+```
+$ curl -i -L http://localhost:4000/video
+{"code":200,"status":true,"data":{"method":"GET","resource":"/video","message":"pineapple.controllers.pineapple.Api.index() was called."}}
+```
 
 Copyright and license
 ---------------------
