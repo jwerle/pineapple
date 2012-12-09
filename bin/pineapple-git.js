@@ -41,5 +41,5 @@ module.exports.call = function(){
 };
 
 module.exports.help = function(help){
-  return help('git', "<command> <args> Execute git commands on the pineapple repo");
+  return help('git', "<command> <args> Execute git commands on your current pineapple repository");
 };
