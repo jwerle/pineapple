@@ -21,10 +21,10 @@ set :scm,               :git
 set :copy_exclude,      ['.DS_Store']
 set :deploy_via,        :remote_cache
 
-after   'deploy:restart', 'deploy:api_app:update'
+after   'deploy:restart', 'pineapple:update'
 
 namespace :pineapple do
-  task 'install' do
-    run "sudo npm install -g #{current_path}"
+  task 'update' do
+    run "echo '#{current_path}'; sudo npm install -g #{current_path}"
   end;
 end;
