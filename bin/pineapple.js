@@ -11,7 +11,10 @@ pwd           = process
 exec          = require('child_process').exec;
 binNamespace  = "pineapple";
 binCommands   = {};
-opts          = [];
+opts          = [
+  {full : 'port', abbr: 'p'},
+  {full : 'env', abbr: 'e'}
+];
 bin           = pineapple.loader.load(__dirname, false, ['pineapple']).bin;
 
 // Load default bin files
@@ -30,20 +33,21 @@ for (cmd in bin) {
   }
 }
 
-// load app bin files
+// load app bin files @TODO expose app bin files for overloading
 //bin           = pineapple.loader.load(__dirname, false, ['pineapple']).bin;
-
-console.log(pineapple.appname)
 
 args          = process.argv.slice(2);
 preservedArgs = [].concat(args).slice(1)
 parser        = new parseopts.Parser(opts);
 
-
 parser.parse(args);
 
 cmds = parser.cmds;
 opts = parser.opts;
+
+if (opts.env) {
+  pineapple.config   = pineapple.utils.object.merge(pineapple.utils.appRequire('/config/environment'), pineapple.utils.appRequire('/config/' + opts.env));
+}
 
 if (! cmds.length || ! (cmds[0] in binCommands)) {
   cmds[0] = 'help';
