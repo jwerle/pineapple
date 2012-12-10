@@ -13,6 +13,15 @@ Utilities
 pineapple.utils = {};
 
 ```
+  - [pineapple.utils.loader.Loader](#loader)
+  - [pineapple.utils.inherit](#inherit)
+  - [pineapple.utils.noop](#noop)
+  - [pineapple.utils.returnMe](#returnme)
+  - [pineapple.utils.makeArray](#makearray)
+  - [pineapple.utils.valueFromPath](#valuefrompath)
+  - [pineapple.utils.parseStringVariables](#parsestringvariables)
+  
+
 _____
 ## [Loader](https://github.com/moovatom/pineapple/blob/master/lib/utilities/Loader.js#L17) 
 ##### ```function(directory, extensions, excluded)```
@@ -76,7 +85,7 @@ console.log(plugins)
   **/
 
 ```
-
+[Top](#pineapple1)
 _____
 
 ## [inherit](https://github.com/moovatom/pineapple/blob/master/lib/utilities/inherit.js#L5) 
@@ -87,7 +96,7 @@ Inherits any number of Constructors or objects into a heir consructor or object.
 
 ##### Example
 -----
-```
+```js
 var inherit = pineapple.utils.inherit
   , Person
   , Joseph
@@ -127,18 +136,21 @@ dom = new Dominic();
 joe.sayName(); // Joseph says: "My name is Joseph."
 dom.sayName(); // Dominic says: "My name is Dominic."
 ```
+[Top](#pineapple1)
 _____
 
 ## [noop](https://github.com/moovatom/pineapple/blob/master/lib/utilities/index.js#L7) 
 ##### ```function()```
 A no operation function. Returns nothing. Does nothing. Noop.
 
+[Top](#pineapple1)
 _____
 
 ## [returnMe](https://github.com/moovatom/pineapple/blob/master/lib/utilities/index.js#L8) 
 ##### ```function()```
 Returns the scope repreentation of ```this```
 
+[Top](#pineapple1)
 _____
 
 ## [makeArray](https://github.com/moovatom/pineapple/blob/master/lib/utilities/index.js#L9) 
@@ -146,6 +158,14 @@ _____
 Turns an object into an array. This is ideal for the ```arguments``` object.
  - ```object``` {Object} The object to make an array.
 
+##### Example
+-----
+```js
+var args = pineapple.utils.makeArray(arguments);
+console.log(args.pop) // [Function]
+```
+
+[Top](#pineapple1)
 _____
 
 ## [valueFromPath](https://github.com/moovatom/pineapple/blob/master/lib/utilities/index.js#L23) 
@@ -154,6 +174,7 @@ Returns a value on an object based on a string path
  - ```path``` {String} The path to the value.
  - ```object``` {Object} The object who holds the value.
 
+[Top](#pineapple1)
 _____
 
 ## [parseStringVariables](https://github.com/moovatom/pineapple/blob/master/lib/utilities/index.js#L27) 
@@ -162,6 +183,7 @@ Returns a value on an object based on a string path
  - ```string``` {String} The string who holds variables to be parsed.
  - ```variables``` {Object} The key to value variable object whos values are desired in the string
 
+[Top](#pineapple1)
 _____
 
 
