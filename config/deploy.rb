@@ -25,6 +25,6 @@ after   'deploy:restart', 'pineapple:update'
 
 namespace :pineapple do
   task 'update' do
-    run "echo '#{current_path}'; sudo npm install -g #{current_path}"
+    run "echo '#{current_path}'; sudo npm install -g #{current_path}; cd #{current_path}; ./scripts/update"
   end;
 end;
