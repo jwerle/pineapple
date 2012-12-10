@@ -1,6 +1,6 @@
 var path      = require('path')
   , Loader    = pineapple.utils.Loader
-  , directory = path.join(APP_PATH, 'tests', TEST_DIR, 'loaderTestFiles')
+  , directory = path.join(PINEAPPLE_PATH, 'tests', TEST_DIR, 'loaderTestFiles')
   , loaded
   , mod
   , type

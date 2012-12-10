@@ -1,4 +1,4 @@
-const TESTS_DIRECTORY = APP_PATH + '/tests';
+const TESTS_DIRECTORY = PINEAPPLE_PATH + '/tests';
 
 // We need global pineapple
 require('./lib/pineapple');
@@ -129,7 +129,7 @@ task('default', function(){
   @namespace test
 **/
 namespace('test', function(){
-  warn ("APP_PATH set as " + APP_PATH);
+  warn ("PINEAPPLE_PATH set as " + PINEAPPLE_PATH);
 
   /**
     @task utilities

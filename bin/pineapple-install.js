@@ -1,7 +1,7 @@
 var exec = require('child_process').exec
 
 module.exports.call = function(){
-  process.chdir(APP_PATH);
+  process.chdir(PINEAPPLE_PATH);
   exec('./scripts/install', function(error, stdout, stderr){
     if (error) {
       console.error(error)

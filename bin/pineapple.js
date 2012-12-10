@@ -3,15 +3,18 @@ require('../lib/pineapple');
 require('colors');
 
 var opts, cmds, cmd, args, match, bin, binCommands, binNamespace, call
-  , preservedArgs
+  , preservedArgs, exex, pwd
 
 var parseopts = require('../deps/parseopts/lib/parseopts')
 
+pwd           = process
+exec          = require('child_process').exec;
 binNamespace  = "pineapple";
 binCommands   = {};
 opts          = [];
-bin         = pineapple.loader.load(__dirname, false, ['pineapple']).bin;
+bin           = pineapple.loader.load(__dirname, false, ['pineapple']).bin;
 
+// Load default bin files
 for (cmd in bin) {
   if (match = cmd.match(/^pineapple-([a-z]+)/)) {
     opts.push({
@@ -27,9 +30,15 @@ for (cmd in bin) {
   }
 }
 
+// load app bin files
+//bin           = pineapple.loader.load(__dirname, false, ['pineapple']).bin;
+
+console.log(pineapple.appname)
+
 args          = process.argv.slice(2);
 preservedArgs = [].concat(args).slice(1)
 parser        = new parseopts.Parser(opts);
+
 
 parser.parse(args);
 

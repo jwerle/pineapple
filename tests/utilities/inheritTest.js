@@ -1,5 +1,5 @@
 var path      = require('path')
-  , inherit   = require(APP_PATH + '/lib/utilities/inherit')
+  , inherit   = require(PINEAPPLE_PATH + '/lib/utilities/inherit')
 
 var Person
   , Joseph

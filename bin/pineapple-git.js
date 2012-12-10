@@ -5,7 +5,7 @@ module.exports.opts = [
 ];
 
 module.exports.call = function(){
-  var dir   = APP_PATH
+  var dir   = PINEAPPLE_PATH
     , args  = [].splice.call(arguments, 0)
     , cmds  = ['git']
     , child
