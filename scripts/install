@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-npm link . && git submodule init && git submodule update && gem install foreman
