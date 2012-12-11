@@ -22,6 +22,8 @@ module.exports.call = function(arg) {
   }
 
   console.log(help.join('\n'));
+
+  process.exit();
 };
 
 module.exports.help = function(help) {

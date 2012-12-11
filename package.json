@@ -24,7 +24,9 @@
     "passport"      : "0.1.x",
     "jake"          : "0.5.8",
     "node-uuid"     : "1.4.0",
-    "node-gyp"      : "0.8.1"
+    "node-gyp"      : "0.8.1",
+    "jog"           : "0.7.1",
+    "redis"         : "0.8.2"
   },
   "repository": {
     "type": "git",
