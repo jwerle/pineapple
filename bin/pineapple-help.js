@@ -3,6 +3,7 @@ module.exports.call = function(arg) {
   
   ns    = this.binNamespace
   help  = [
+    "",
     "Usage".blue,
     ""
   ];

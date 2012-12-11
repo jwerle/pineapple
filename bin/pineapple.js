@@ -54,7 +54,7 @@ if (! cmds.length || ! (cmds[0] in binCommands)) {
 }
 
 cmd   = cmds.shift();
-args  = preservedArgs;
+args  = cmds.length? cmds : preservedArgs;
 
 pineapple.binNamespace = binNamespace;
 pineapple.binCommands  = binCommands;

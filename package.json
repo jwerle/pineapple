@@ -23,7 +23,8 @@
     "repl-console"  : "0.4.x",
     "passport"      : "0.1.x",
     "jake"          : "0.5.8",
-    "node-uuid"     : "1.4.0"
+    "node-uuid"     : "1.4.0",
+    "node-gyp"      : "0.8.1"
   },
   "repository": {
     "type": "git",
