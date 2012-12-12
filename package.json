@@ -30,7 +30,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/moovatom/pineapple.git"
+    "url": "git://github.com/jwerle/pineapple.git"
   },
   "engines": {
     "node": ">= 0.8"
