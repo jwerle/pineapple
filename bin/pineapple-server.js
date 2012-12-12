@@ -3,12 +3,19 @@ module.exports.opts = [
 ];
 
 module.exports.call = function(){
-  var args      = pineapple.utils.makeArray(arguments)
-    , port      = pineapple.config.server.port
-    , dbConfig  = pineapple.config.database 
-    , db        = dbConfig.database
+  var args          = pineapple.utils.makeArray(arguments)
+    , port          = pineapple.config.server.port
+    , dbConfig      = pineapple.config.database 
+    , db            = dbConfig.database
+    , formats       = pineapple.server.formatters.get()
+    , serverConfig  = {
+      formatters : formats
+    }
 
-  pineapple.api.create(pineapple.config.server.config).bindRoutes(pineapple.routes).listen(port, function(){
+
+  serverConfig = pineapple.utils.object.merge(serverConfig, pineapple.config.server.config)
+
+  pineapple.api.create(serverConfig).bindRoutes(pineapple.routes).listen(port, function(){
     console.log("Pineapple API Server started. Listening on port ".green + new String(port).cyan);
   });
 
