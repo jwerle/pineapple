@@ -3,7 +3,7 @@ require('../lib/pineapple');
 require('colors');
 
 var opts, cmds, cmd, args, match, bin, binCommands, binNamespace, call
-  , preservedArgs, exex, pwd
+  , preservedArgs, exex, pwd, i, func
 
 var parseopts = require('../deps/parseopts/lib/parseopts')
 
@@ -60,6 +60,14 @@ pineapple.binNamespace = binNamespace;
 pineapple.binCommands  = binCommands;
 
 if (typeof (call = binCommands[cmd].call) === 'function') {
+  if (binCommands[cmd].deps && binCommands[cmd].deps.length) {
+    for (i = 0; i < binCommands[cmd].deps.length; i++) {
+      if (typeof (func = binCommands[binCommands[cmd].deps[i]].call) === 'function') {
+        func.apply(pineapple, args);
+      }
+    }
+  }
+
   call.apply(pineapple, args);
 }
 else {
