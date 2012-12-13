@@ -65,16 +65,18 @@ $ curl http://localhost:4000
 
 
 ### Command line API
-`pineapple`           - If executed from an application directory it will read your files and show you a usage prompt.
-`pineapple update`    - Installs all the necessary dependents for the Pineapple API Service.
-`pineapple test`      - <namespace> <suite> Execute test suites.
-`pineapple server`    - <command> Execute server commands
-`pineapple help`      - Display this message
-`pineapple git`       - <command> <args> Execute git commands on your current pineapple repository
-`pineapple gen`       - Generates a new pineapple api application.
-`pineapple daemon`    - Creates a daemon process for a Pineapple application.
-`pineapple console`   - [-f] Start a console with your Pineapple application
-`pineapple app`       - Display package information for the application.
+```
+pineapple           - If executed from an application directory it will read your files and show you a usage prompt.
+pineapple update    - Installs all the necessary dependents for the Pineapple API Service.
+pineapple test      - <namespace> <suite> Execute test suites.
+pineapple server    - <command> Execute server commands
+pineapple help      - Display this message
+pineapple git       - <command> <args> Execute git commands on your current pineapple repository
+pineapple gen       - Generates a new pineapple api application.
+pineapple daemon    - Creates a daemon process for a Pineapple application.
+pineapple console   - [-f] Start a console with your Pineapple application
+pineapple app       - Display package information for the application.
+```
 
 
 Copyright and license
