@@ -13,7 +13,7 @@ module.exports.call = function(){
 
   setTimeout(function(){
     pineapple.console.start();
-  }, 0);
+  }, 100);
   
   pineapple.console.logger.success("Have fun!");
 };

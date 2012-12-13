@@ -15,8 +15,18 @@ module.exports.call = function(){
 
   serverConfig = pineapple.utils.object.merge(serverConfig, pineapple.config.server.config)
 
-  pineapple.api.create(serverConfig).bindRoutes(pineapple.routes).listen(port, function(){
-   pineapple.api.logger.info("Listening on port ".green + new String(port).cyan);
+  pineapple.utils.network.isPortOpen(port, serverConfig.host, function(err, isOpen) {
+    if (err) {
+      pineapple.api.error(err.message);
+    }
+    else if (! isOpen) {
+      pineapple.api.create(serverConfig).bindRoutes(pineapple.routes).listen(port, function(){
+       pineapple.api.logger.info("Listening on port ".green + new String(port).cyan);
+      });
+    }
+    else {
+      pineapple.api.logger.warn("Port " + port + " is currently in use. I'm not going to start the server");
+    }
   });
 
   pineapple._db = pineapple.db.connect(dbConfig.host, db);
