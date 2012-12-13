@@ -27,15 +27,12 @@ module.exports.call = function(){
 
   cmds.push(args.join(' '))
   child = exec (cmds.join(' '), function(error, stdout, stderr){
-    if (error !== null) {
-      console.error(error)
-    }
-
     if (stderr) {
-      console.error(stderr)
+      pineapple.logger.fail(stderr)
     }
-
-    console.log(stdout.cyan)
+    else {
+      pineapple.logger.info(stdout.cyan);
+    }
   });
 
 };

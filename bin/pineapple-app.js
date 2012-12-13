@@ -33,6 +33,8 @@ module.exports.call = function() {
   else {
     console.log(this.package);
   }
+  
+  pineapple.die();
 };
 
 module.exports.help = function(help) {

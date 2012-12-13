@@ -35,6 +35,8 @@ module.exports.call = function(){
     else {
       pineapple.logger.success("Update successful!");
     }
+
+    pineapple.die();
   });
 };
 

@@ -22,8 +22,8 @@ module.exports.call = function() {
 
   if (!!~ args.indexOf('server')) {
     daemon.use(function(){
-      console.log("Creating server..".green);
-      console.log([
+      pineapple.daemon.logger.info("Creating server..".green);
+      pineapple.daemon.logger.info([
         'name     : ' + pineapple.config.server.config.name.cyan,
         'version  : ' + pineapple.config.server.config.version.cyan,
         'port     : ' + (''+ port).magenta,
@@ -32,15 +32,15 @@ module.exports.call = function() {
       ].join("\n"));
 
       pineapple.api.create(pineapple.config.server.config).bindRoutes(pineapple.routes).listen(port, function(){
-        console.log("Pineapple API Server started. Listening on port ".green + new String(port).cyan);
+        pineapple.api.logger.info("Pineapple API Server started. Listening on port ".green + new String(port).cyan);
       });
     });
   }
 
   if (!!~ args.indexOf('db')) {
     daemon.use(function(){
-      console.log("Creating database connection..".green)
-      console.log([
+      pineapple.daemon.logger.info("Creating database connection..".green)
+      pineapple.daemon.logger.info([
         'adapter   : ' + dbConfig.adapter.green, 
         'host      : ' + dbConfig.host.cyan,
         'database  : ' + db.cyan,
