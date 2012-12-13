@@ -1,6 +1,6 @@
 {
   "name": "pineapple",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A very simple and extendable RESTful API framework. Includes routing and a model wrapper around MongoDB.",
   "keywords": [
     "pineapple",
@@ -33,6 +33,6 @@
     "url": "git://github.com/jwerle/pineapple.git"
   },
   "engines": {
-    "node": ">= 0.8"
+    "node": ">= 0.6"
   }
 }
