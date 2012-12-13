@@ -38,6 +38,10 @@ module.exports.call = function() {
 
   function promptAppname() {
     name = faker.Internet.domainWord();
+    try {
+      pineapple.logger.cli.close();
+    }
+    catch (e){}
 
     pineapple.logger.question("How does ["+ name.cyan +"] sound? (y/n/exit)", function(answer){
       switch (answer.toLowerCase()) {
@@ -47,8 +51,14 @@ module.exports.call = function() {
         break;
 
         case 'n':
-          pineapple.logger.warn("Okay, I understand. I won't create that app with that name.");
-          pineapple.logger.cli.close();
+          pineapple.logger.info("Okay, I understand. I won't create that app with that name. Let's try again. You can respond with exit if you want me to give up. =)");
+          promptAppname();
+        break;
+
+        case 'exit' :
+          pineapple.logger.info("Okay, okay. I get it. These names suck! Maybe you should provide your own then. Hmph.");
+          pineapple.logger.warn("I'm exiting..");
+          pineapple.die();
         break;
 
         default : 
