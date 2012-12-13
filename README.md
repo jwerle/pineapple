@@ -5,84 +5,77 @@ It currently wraps Restify and Mongoose with an interface.
 
 ### Install
 ```
-$ git clone git@github.com:moovatom/pineapple.git; cd pineapple; sudo ./scripts/install
+$ sudo npm install -g pineapple
 ```
 
-### Configuration
-```js
-/** config/environment.js
- * Environment - Default confgiuration
- * 
- * Access it at pineapple.config
- * */
-{
-  "server" : {
-    "port"     : 4000,
-    "adapter"  : "restify",
-    "config"   : {
-      "name"      : "Pineapple",
-      "version"   : "1.0.0"
-    }  
-  },
-
-  "database" : {
-    "host"      : "localhost",
-    "adapter"   : "mongoose"
-  },
-
-  "env" : "development"
-}
-
-/** 
- * Development|Production|Other
- * 
- * Your environment is specified in the
- * environment config with the "env" property
- * */
-// config/development.js
-{
-  "database" : {
-    "database" : "pineapple_development"
-  }
-}
-
-// config/production.js
-{
-  "database" : {
-    "database" : "pineapple_production"
-  }
-}
-
+### Creating a new app
+```
+$ pineapple gen myapp
+Requiring app module /package.json
+[pineapple] => New Pineapple application created at /Users/werle/tmp/myapp
 ```
 
-### Routes
-```js
-const API_VERSION = parseInt(pineapple.config.server.config.version);
-
-var router = new pineapple.router.Router()
-
-router.useMethods(['GET', 'POST', 'PUT', 'DEL']);
-router.setDefaultAction('index');
-
-router.create('GET', '/', 'pineapple.Api.index');
-router.get('/:resource', 'pineapple.Api'); // defaults to pineapple.Api.index
-```
-
-### Usage
+### Starting pineapple
 ```
 $ pineapple server
+Requiring app module /config/environment
+Requiring app module /config/development
+Requiring app module /config/application
+Requiring app module /package.json
+Requiring app module /config/routes.js
+Requiring app module /app/controllers
+Requiring app module /app/models
 Pineapple API Server started. Listening on port 4000
 ```
 
+### Check it!
 ```
-$ curl -i -L http://localhost:4000/
-{"code":200,"status":true,"data":{"method":"GET","resource":"/"}}
+$ curl http://localhost:4000
+{"code":200,"status":true,"data":{"method":"GET","resource":"/","message":"pineapple.controllers.pineapple.Api.index() was called."}}
 ```
 
+
+### Basic app structure
 ```
-$ curl -i -L http://localhost:4000/video
-{"code":200,"status":true,"data":{"method":"GET","resource":"/video","message":"pineapple.controllers.pineapple.Api.index() was called."}}
+├── Capfile
+├── Jakefile
+├── Procfile
+├── README.md
+├── app
+│   ├── controllers
+│   │   ├── index.js
+│   │   └── pineapple
+│   │       ├── Api.js
+│   │       └── index.js
+│   └── models
+│       └── index.js
+├── config
+│   ├── README.md
+│   ├── application.json
+│   ├── development.json
+│   ├── environment.json
+│   ├── production.json
+│   └── routes.js
+├── log
+├── package.json
+└── tests
+    └── app
+        └── README.md
 ```
+
+
+### Command line API
+`pineapple`           - If executed from an application directory it will read your files and show you a usage prompt.
+`pineapple update`    - Installs all the necessary dependents for the Pineapple API Service.
+`pineapple test`      - <namespace> <suite> Execute test suites.
+`pineapple server`    - <command> Execute server commands
+`pineapple help`      - Display this message
+`pineapple git`       - <command> <args> Execute git commands on your current pineapple repository
+`pineapple gen`       - Generates a new pineapple api application.
+`pineapple daemon`    - Creates a daemon process for a Pineapple application.
+`pineapple console`   - [-f] Start a console with your Pineapple application
+`pineapple app`       - Display package information for the application.
+
 
 Copyright and license
 ---------------------
