@@ -16,7 +16,7 @@ module.exports.call = function(){
   serverConfig = pineapple.utils.object.merge(serverConfig, pineapple.config.server.config)
 
   pineapple.api.create(serverConfig).bindRoutes(pineapple.routes).listen(port, function(){
-    console.log("Pineapple API Server started. Listening on port ".green + new String(port).cyan);
+   pineapple.api.logger.info("Listening on port ".green + new String(port).cyan);
   });
 
   pineapple._db = pineapple.db.connect(dbConfig.host, db);
