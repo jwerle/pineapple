@@ -6,7 +6,7 @@ module.exports.call = function() {
   var args = this.utils.makeArray(arguments)
     , name = args[0]
     , dir  = path.resolve(args[1]) + '/' + name
-    , tpl  = path.resolve(__dirname, '../')
+    , tpl  = path.resolve(__dirname, '../tpl')
   
   exec(['mkdir', dir].join(' '), function(error, stdout, stderr){
     if (error) {
@@ -17,7 +17,7 @@ module.exports.call = function() {
     }
     else {
       exec(['cp -rf', tpl + '/*', dir].join(' '), function(error, stdout, stderr){
-        console.log("New Pineapple API app created at ".cyan + dir);
+        pineapple.logger.info("New Pineapple application created at ".cyan + dir.blue);
       });
     }
   })
