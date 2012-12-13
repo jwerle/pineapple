@@ -21,6 +21,10 @@ module.exports.call = function(){
     stdout = stdout.split("\n");
 
     for (i = 0; i < stdout.length; i++) {
+      if (! stdout[i].trim().length) {
+        continue;
+      }
+      
       if (!!~ stdout[i].toLowerCase().indexOf('err')) {
         pineapple.logger.error(stdout[i]);
       }
