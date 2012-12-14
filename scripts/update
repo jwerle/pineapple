@@ -15,7 +15,7 @@ command -v brew > /dev/null 2>&1 && {
 
 if [[ $cmd ]]; 
   then
-    command -v ruby -> /dev/null 2>&1 || {
+    command -v ruby > /dev/null 2>&1 || {
       eval $cmd' install ruby';
     }
 fi;
