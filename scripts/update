@@ -1,2 +1,23 @@
 #!/usr/bin/env bash
-gem install foreman;
+cmd="";
+
+command -v apt-get > /dev/null 2>&1 && {
+  cmd="sudo apt-get";
+}
+
+command -v yum > /dev/null 2>&1 && {
+  cmd="sudo yum";
+}
+
+command -v brew > /dev/null 2>&1 && {
+  cmd="brew";
+}
+
+if [[ $cmd ]]; 
+  then
+    eval $cmd' install ruby';
+fi;
+
+command -v gem > /dev/null 2>&1 && {
+    sudo gem install foreman;
+}
