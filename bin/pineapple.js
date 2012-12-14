@@ -12,9 +12,11 @@ exec          = require('child_process').exec;
 binNamespace  = "pineapple";
 binCommands   = {};
 opts          = [
-  {full : 'port', abbr: 'p'},
-  {full : 'env', abbr: 'e'}
+  {full : 'port',     abbr: 'p'},
+  {full : 'env',      abbr: 'e'},
+  {full : 'version',  abbr: 'v'}
 ];
+
 bin           = pineapple.loader.load(__dirname, false, ['pineapple']).bin;
 
 // Load default bin files
@@ -45,6 +47,11 @@ parser.parse(args);
 cmds = parser.cmds;
 opts = parser.opts;
 
+if (opts.version) {
+  pineapple.logger.info(pineapple.VERSION);
+  pineapple.die();
+}
+
 if (opts.env) {
   pineapple.config   = pineapple.utils.object.merge(pineapple.utils.appRequire('/config/environment'), pineapple.utils.appRequire('/config/' + opts.env));
 }
@@ -71,5 +78,5 @@ if (typeof (call = binCommands[cmd].call) === 'function') {
   call.apply(pineapple, args);
 }
 else {
-  console.error({message: "Invalid command"})
+  pineapple.logger.error("Invalid command");
 }
