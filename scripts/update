@@ -15,9 +15,14 @@ command -v brew > /dev/null 2>&1 && {
 
 if [[ $cmd ]]; 
   then
-    eval $cmd' install ruby';
+    command -v ruby -> /dev/null 2>&1 || {
+      eval $cmd' install ruby';
+    }
 fi;
 
 command -v gem > /dev/null 2>&1 && {
+  command -v foreman > /dev/null 2>&1 || {
     sudo gem install foreman;
+    exit;
+  }
 }
