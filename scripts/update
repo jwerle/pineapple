@@ -26,3 +26,7 @@ command -v gem > /dev/null 2>&1 && {
     exit;
   }
 }
+
+command -v npm > /dev/null 2>&1 && {
+  sudo npm update pineapple -g
+}

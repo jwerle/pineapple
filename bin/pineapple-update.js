@@ -7,7 +7,7 @@ module.exports.call = function(){
   exec('./scripts/update', function(error, stdout, stderr){
     var i, e = false
 
-    if (stderr) {
+    if (stderr && !~ stderr.indexOf('npm')) {
       pineapple.logger.error("Something went wrong!");
       stderr = stderr.split("\n");
 
@@ -15,7 +15,7 @@ module.exports.call = function(){
         if (! stderr[i].trim().length) {
           continue;
         }
-        
+
         pineapple.logger.error(stderr[i]);
       }
       
