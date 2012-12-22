@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+_papl() {
+  COMPREPLY=()
+  local word="${COMP_WORDS[COMP_CWORD]}"
+  local command="${COMP_WORDS[1]}"
+
+  echo $word
+  echo $command
+
+  if [ "$COMP_CWORD" -eq 1 ]; then
+    COMPREPLY=( $(compgen -W "$(papl commands)" -- "$word") )
+  else
+    local command="${COMP_WORDS[1]}"
+    local completions="$(papl completions "$command")"
+    COMPREPLY=( $(compgen -W "$completions" -- "$word") )
+  fi
+}
+
+complete -F _papl papl

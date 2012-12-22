@@ -17,22 +17,20 @@ opts          = [
   {full : 'version',  abbr: 'v'}
 ];
 
-bin           = pineapple.loader.load(__dirname, false, ['pineapple']).bin;
+bin           = pineapple.loader.load(__dirname + '/cmds', false, ['pineapple']).cmds;
 
 // Load default bin files
 for (cmd in bin) {
-  if (match = cmd.match(/^pineapple-([a-z]+)/)) {
     opts.push({
-      full : match[1],
-      abbr : match[1]
+      full : cmd,
+      abbr : cmd
     });
 
     if (bin[cmd].opts && bin[cmd].opts.length) {
       opts = opts.concat(bin[cmd].opts);
     }
 
-    binCommands[match[1]] = bin[cmd];
-  }
+    binCommands[cmd] = bin[cmd];
 }
 
 // load app bin files @TODO expose app bin files for overloading
@@ -57,7 +55,7 @@ if (opts.env) {
 }
 
 if (! cmds.length || ! (cmds[0] in binCommands)) {
-  cmds[0] = 'help';
+  cmds[0] = 'usage';
 }
 
 cmd   = cmds.shift();

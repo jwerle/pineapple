@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -e
+
+COMMAND="app"
+COMMAND_PATH="$(command -v "pineapple")"
+
+echo "$COMMAND_PATH" "$COMMAND" "$@"
+exec "$COMMAND_PATH" "$COMMAND" "$@"

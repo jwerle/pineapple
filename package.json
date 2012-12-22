@@ -13,7 +13,8 @@
   "preferGlobal" : true,
   "author": "Jospeh Werle <joseph.werle@gmail.com>",
    "bin" : {
-    "pineapple" : "./bin/pineapple.js"
+    "papl"                : "./bin/papl",
+    "pineapple"           : "./bin/pineapple.js"
   },
   "dependencies": {
     "restify"       : ">= 1.4.4",
@@ -26,7 +27,8 @@
     "node-uuid"     : "1.4.0",
     "node-gyp"      : "0.8.1",
     "redis"         : "0.8.2",
-    "Faker"         : "0.1.3"
+    "Faker"         : "0.1.3",
+    "architect"     : "0.1.8"
   },
   "repository": {
     "type": "git",
@@ -34,5 +36,9 @@
   },
   "engines": {
     "node": ">= 0.6"
+  },
+
+  "scripts" : {
+    "install" : "sh ./scripts/install"
   }
 }
