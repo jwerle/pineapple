@@ -13,7 +13,6 @@
   "preferGlobal" : true,
   "author": "Jospeh Werle <joseph.werle@gmail.com>",
    "bin" : {
-    "papl"                : "./bin/papl",
     "pineapple"           : "./bin/pineapple.js"
   },
   "dependencies": {
