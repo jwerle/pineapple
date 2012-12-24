@@ -3,7 +3,7 @@ require('../lib/pineapple');
 require('colors');
 
 var opts, cmds, cmd, args, match, bin, binCommands, binNamespace, call
-  , preservedArgs, exex, pwd, i, func
+  , preservedArgs, exex, pwd, i, func, binOpts
 
 var parseopts = require('../deps/parseopts/lib/parseopts')
 
@@ -21,16 +21,26 @@ bin           = pineapple.loader.load(__dirname + '/cmds', false, ['pineapple'])
 
 // Load default bin files
 for (cmd in bin) {
-    opts.push({
-      full : cmd,
-      abbr : cmd
-    });
+  binOpts = {
+    full : cmd,
+    abbr : cmd
+  };
 
-    if (bin[cmd].opts && bin[cmd].opts.length) {
-      opts = opts.concat(bin[cmd].opts);
+  if (typeof bin[cmd].opts === 'object' && bin[cmd].opts.length) {
+    for (i = 0; i < bin[cmd].opts.length; i++) {
+      if (typeof bin[cmd].opts[i] === 'object') {
+        binOpts = pineapple.utils.object.merge(binOpts, bin[cmd].opts[i]);
+      }
     }
+  }
 
-    binCommands[cmd] = bin[cmd];
+  opts.push(binOpts);
+
+  if (bin[cmd].opts && bin[cmd].opts.length) {
+    opts = opts.concat(bin[cmd].opts);
+  }
+
+  binCommands[cmd] = bin[cmd];
 }
 
 // load app bin files @TODO expose app bin files for overloading
@@ -54,6 +64,30 @@ if (opts.env) {
   pineapple.config   = pineapple.utils.object.merge(pineapple.utils.appRequire('/config/environment'), pineapple.utils.appRequire('/config/' + opts.env));
 }
 
+// Find any aliases
+for (cmd in binCommands) {
+  if (typeof binCommands[cmd].alias !== 'undefined') {
+    switch (typeof binCommands[cmd].alias) {
+      case 'string' :
+        if (binCommands[cmd].alias === cmds[0]) {
+          cmds[0] = cmd;
+        }
+      break;
+
+      case 'object' :
+        if (binCommands[cmd].alias.length) {
+          for (i = 0; i < binCommands[cmd].alias.length; i++) {
+            if (binCommands[cmd].alias[i] === cmds[0]) {
+              cmds[0] = cmd;
+              break;
+            }
+          }
+        }
+      break;
+    }
+  }
+}
+
 if (! cmds.length || ! (cmds[0] in binCommands)) {
   cmds[0] = 'usage';
 }
@@ -61,8 +95,9 @@ if (! cmds.length || ! (cmds[0] in binCommands)) {
 cmd   = cmds.shift();
 args  = cmds.length? cmds : preservedArgs;
 
-pineapple.binNamespace = binNamespace;
-pineapple.binCommands  = binCommands;
+
+pineapple.namespace = binNamespace;
+pineapple.bin       = binCommands;
 
 if (typeof (call = binCommands[cmd].call) === 'function') {
   if (binCommands[cmd].deps && binCommands[cmd].deps.length) {

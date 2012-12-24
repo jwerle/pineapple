@@ -8,20 +8,22 @@ module.exports.call = function(arg) {
     ""
   ];
 
-  if (! (arg in this.binCommands)) {
-    for (cmd in this.binCommands) {
-      if (typeof this.binCommands[cmd].help === 'function') {
-        help.push(this.binCommands[cmd].help(helpDialog));
+  if (typeof arg === 'string') {
+    if (! (arg in this.binCommands)) {
+      for (cmd in this.binCommands) {
+        if (typeof this.binCommands[cmd].help === 'function') {
+          help.push(this.binCommands[cmd].help(helpDialog));
+        }
       }
     }
-  }
-  else {
-    if (typeof this.binCommands[arg].help === 'function') {
-      help.push(this.binCommands[arg].help(helpDialog));
+    else {
+      if (typeof this.binCommands[arg].help === 'function') {
+        help.push(this.binCommands[arg].help(helpDialog));
+      }
     }
-  }
 
-  console.log(help.join('\n'));
+    console.log(help.join('\n'));
+  }
 
   process.exit();
 };

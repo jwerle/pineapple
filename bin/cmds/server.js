@@ -1,6 +1,8 @@
 module.exports.opts = [
-  {full : 'port', abbr: 'p'}
+  {full : 'port',   abbr: 'p'}
 ];
+
+module.exports.alias = 's';
 
 module.exports.call = function(){
   var args          = pineapple.utils.makeArray(arguments)
