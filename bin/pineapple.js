@@ -91,8 +91,6 @@ if (! cmds.length || ! (cmds[0] in binCommands)) {
 
 cmd   = cmds.shift();
 args  = cmds.length? cmds : preservedArgs;
-
-
 pineapple.namespace = binNamespace;
 pineapple.bin       = binCommands;
 
