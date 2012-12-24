@@ -43,9 +43,6 @@ for (cmd in bin) {
   binCommands[cmd] = bin[cmd];
 }
 
-// load app bin files @TODO expose app bin files for overloading
-//bin           = pineapple.loader.load(__dirname, false, ['pineapple']).bin;
-
 args          = process.argv.slice(2);
 preservedArgs = [].concat(args).slice(1)
 parser        = new parseopts.Parser(opts);
