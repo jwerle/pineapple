@@ -1,4 +1,4 @@
-const TESTS_DIRECTORY = PINEAPPLE_PATH + '/tests';
+const TESTS_DIRECTORY = PINEAPPLE_PATH + '/test';
 
 // We need global pineapple
 require('./lib/pineapple');
