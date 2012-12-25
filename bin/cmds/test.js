@@ -7,7 +7,10 @@ module.exports.call = function() {
   testNs    = 'test:';
   args      = [].splice.call(arguments, 0);
   args      = args.map(function(arg){ return testNs + arg; });
-  jakefile  = path.normalize(path.join(__dirname, '..', 'Jakefile'));
+  jakefile  = path.normalize(path.join(pineapple.PATH, 'Jakefile'));
+
+  pineapple.logger.info('Executing Jakefile test => ' + jakefile);
+
   jake.program.parseArgs(args);
   jake.loader.loadFile(jakefile);
 

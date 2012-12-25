@@ -74,7 +74,6 @@ executeTest = function(test, tests){
 
   directory      = TESTS_DIRECTORY + '/' + TEST_DIR;
   testDirectory  = directory + '/' + test + 'Test.js';
-
   if (stat(testDirectory)) {
     warn ("Executing " + test + " test -> " + testDirectory);
     try {
@@ -113,7 +112,6 @@ createTestSuite = function(type){
     global.TEST_DIR = type;
 
     var args = pineapple.utils.makeArray(arguments)
-
     executeTest(args.shift(), args);
   });
 }
@@ -129,7 +127,13 @@ task('default', function(){
   @namespace test
 **/
 namespace('test', function(){
+  var self = this
+
   warn ("PINEAPPLE_PATH set as " + PINEAPPLE_PATH);
+
+  task('all', function(){
+    
+  });
 
   /**
     @task utilities
