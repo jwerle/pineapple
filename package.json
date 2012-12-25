@@ -29,6 +29,9 @@
     "Faker"         : "0.1.3",
     "architect"     : "0.1.8"
   },
+  "scripts" : {
+    "test" : "./bin/pineapple.js test"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/jwerle/pineapple.git"
