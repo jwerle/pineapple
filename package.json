@@ -1,6 +1,6 @@
 {
   "name": "pineapple",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "description": "A very simple and extendable RESTful API framework. Includes routing and a model wrapper around MongoDB.",
   "keywords": [
     "pineapple",
@@ -35,9 +35,5 @@
   },
   "engines": {
     "node": ">= 0.6"
-  },
-
-  "scripts" : {
-    "install" : "sh ./scripts/install"
   }
 }
