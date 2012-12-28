@@ -24,6 +24,7 @@ module.exports.call = function(){
     else if (! isOpen) {
       pineapple.api.create(serverConfig).bindRoutes(pineapple.routes).listen(port, function(){
        pineapple.api.logger.info("Listening on port ".green + new String(port).cyan);
+       pineapple.api.emit('connected');
       });
     }
     else {

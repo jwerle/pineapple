@@ -1,0 +1,5 @@
+{
+  "code"    : 401,
+  "status"  : false,
+  "message" : "You are not authorized to use ${resource}. ${reason}"
+}

@@ -6,7 +6,7 @@ var path      = require('path')
 module.exports.call = function() {
   var args = this.utils.makeArray(arguments)
     , name = args[0]
-    , tpl  = path.resolve(__dirname, '../tpl')
+    , tpl  = path.resolve(pineapple.PATH, 'tpl')
     , dir
 
   if (! name) {
@@ -38,6 +38,7 @@ module.exports.call = function() {
 
   function promptAppname() {
     name = faker.Internet.domainWord();
+    
     try {
       pineapple.logger.cli.close();
     }
@@ -51,18 +52,18 @@ module.exports.call = function() {
         break;
 
         case 'n':
-          pineapple.logger.info("Okay, I understand. I won't create that app with that name. Let's try again. You can respond with exit if you want me to give up. =)");
+          pineapple.logger.info("Okay, I understand. Let's try again. You can respond with exit if you want me to stop.");
           promptAppname();
         break;
 
         case 'exit' :
-          pineapple.logger.info("Okay, okay. I get it. These names suck! Maybe you should provide your own then. Hmph.");
+          pineapple.logger.info("Okay, okay. I get it. Maybe you should provide your own then.");
           pineapple.logger.warn("I'm exiting..");
           pineapple.die();
         break;
 
         default : 
-          pineapple.logger.warn("Oops! Looks like that is a response I just don't understand. Stupid pineapple!");
+          pineapple.logger.warn("Oops! Looks like that is a response I just don't understand.");
           promptAppname();
         break;
       }

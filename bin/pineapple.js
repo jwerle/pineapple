@@ -17,7 +17,11 @@ opts          = [
   {full : 'version',  abbr: 'v'}
 ];
 
-bin           = pineapple.loader.load(__dirname + '/cmds', false, ['pineapple']).cmds;
+bin = pineapple.loader.load(__dirname + '/cmds', false, ['pineapple']).cmds;
+
+if (pineapple.utils.appStat('/bin/cmds')) {
+  bin = pineapple.utils.object.merge(bin, pineapple.loader.load(pineapple.APP_PATH + '/bin/cmds', false).cmds);
+}
 
 // Load default bin files
 for (cmd in bin) {
@@ -89,15 +93,17 @@ if (! cmds.length || ! (cmds[0] in binCommands)) {
   cmds[0] = 'usage';
 }
 
+
 cmd   = cmds.shift();
 args  = cmds.length? cmds : preservedArgs;
-pineapple.namespace = binNamespace;
-pineapple.bin       = binCommands;
+bin   = pineapple.bin = binCommands;
+pineapple.namespace   = binNamespace;
 
-if (typeof (call = binCommands[cmd].call) === 'function') {
-  if (binCommands[cmd].deps && binCommands[cmd].deps.length) {
-    for (i = 0; i < binCommands[cmd].deps.length; i++) {
-      if (typeof (func = binCommands[binCommands[cmd].deps[i]].call) === 'function') {
+
+if (typeof (call = bin[cmd].call) === 'function') {
+  if (bin[cmd].deps && bin[cmd].deps.length) {
+    for (i = 0; i < bin[cmd].deps.length; i++) {
+      if (typeof (func = bin[bin[cmd].deps[i]].call) === 'function') {
         func.apply(pineapple, args);
       }
     }
