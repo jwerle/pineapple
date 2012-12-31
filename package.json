@@ -1,6 +1,6 @@
 {
   "name": "pineapple",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "A very simple and extendable RESTful API framework. Includes routing and a model wrapper around MongoDB.",
   "keywords": [
     "pineapple",
@@ -16,6 +16,7 @@
     "pineapple"           : "./bin/pineapple.js"
   },
   "dependencies": {
+    "auto-loader"   : ">= 0.0.x",
     "restify"       : ">= 1.4.4",
     "utilities"     : "0.0.x",
     "colors"        : "0.6.0-1",
