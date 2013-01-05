@@ -1,6 +1,6 @@
-{
+  {
   "name": "pineapple",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "A very simple and extendable RESTful API framework. Includes routing and a model wrapper around MongoDB.",
   "keywords": [
     "pineapple",
@@ -8,7 +8,13 @@
     "restful",
     "mongodb",
     "mongoose",
-    "restify"
+    "restify",
+    "rest",
+    "web",
+    "framework",
+    "server",
+    "restify",
+    "mongo"
   ],
   "preferGlobal" : true,
   "author": "Jospeh Werle <joseph.werle@gmail.com>",
@@ -17,7 +23,7 @@
   },
   "dependencies": {
     "auto-loader"   : ">= 0.0.x",
-    "restify"       : ">= 1.4.4",
+    "restify"       : ">= 2.x.x",
     "utilities"     : "0.0.x",
     "colors"        : "0.6.0-1",
     "mongoose"      : "3.4.0",
