@@ -1,46 +1,182 @@
-pineapple(1)
+![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-color-2-e1357499518266.png) ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-color-2-e1357499518266.png) ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-color-2-e1357499518266.png) ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-color-2-e1357499518266.png) 
+pineapple(1) [![Build Status](https://travis-ci.org/jwerle/pineapple.png?branch=master)](https://travis-ci.org/jwerle/pineapple)
 ===============
-[![Build Status](https://travis-ci.org/jwerle/pineapple.png?branch=master)](https://travis-ci.org/jwerle/pineapple)
 
-A very simple and extendable RESTful API framework. Includes routing and a model wrapper around MongoDB. 
-It currently wraps Restify and Mongoose with an interface.
+A very simple, fun, and extendable RESTful API framework that includes routing and a model wrapper around MongoDB. 
+Built for MVC idealist with the intentions of just stepping out of the way and helping you get your data.
 
-### Install
-```
-$ sudo npm install -g pineapple
+---
+
+![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png) Install
+===
+`pineapple` requires global installing for the cli utilitiy. If you do not plan on using pineapple to manage a pineapple
+application from the command line then using it as a local module is fine.
+```sh
+$ [sudo] npm install -g pineapple
 ```
 
-### Creating a new app
-```
+---
+
+![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png) Creating a new app
+===
+`pineapple gen <name>`
+
+Creating a pineapple application can easily be achieved with `pineapple gen`
+```sh
 $ pineapple gen myapp
-Requiring app module /package.json
-[pineapple] => New Pineapple application created at /Users/werle/tmp/myapp
+[pineapple] => Sweet! I've created a new Pineapple application here => /Users/werle/repos/myapp
 ```
 
-### Starting pineapple
-```
-$ pineapple server
+---
+
+![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png) Starting a pineapple server
+===
+`pineapple server`
+
+Starting a pineapple server of a pineapple application is as simple as executing `pineapple server` from the directory of
+the pineapple application.
+
+## shell
+```sh
+$ pineapple [server|s]
 Requiring app module /config/environment
 Requiring app module /config/development
 Requiring app module /config/application
-Requiring app module /package.json
 Requiring app module /config/routes.js
 Requiring app module /app/controllers
 Requiring app module /app/models
-Pineapple API Server started. Listening on port 4000
+[app] => Found the Paplfile file. => /Users/werle/repos/myapp/Paplfile
+[server] => Listening on port 4000
 ```
 
-### Check it!
+## node
+You could utilize the pineapple module and create your own server without using a skeleton pineapple application.
+The contents of a possible `app.js` file below whose only dependency is `pineapple` demonstrates the process
+of using pineapple in node with minimal requirements. Consider the following app structure:
+```sh
+├── app.js
+└── node_modules
+    └── pineapple (pineapple module)
 ```
+You could then use pinapple to create a server, bind routes, and listen on a port to start the service.
+```js
+require('pineapple');
+// server config
+var serverConfig = {
+  port   : 4000, 
+  config : { 
+    name : "myService" 
+  }
+};
+
+// we can create a server with minimal configuration
+pineapple.api.create(serverConfig);
+
+/**
+ * In order for your server to work we will need some routers set up.
+ * That can easily be achieved with pineapple's built in router.
+ * 
+ * The router supports basic POST, GET, PUT, and DELETE protocols via
+ * convenience methods:
+ *  router.post(uri_path, [controller_path|callback]); // POST
+ *  router.get(uri_path, [controller_path|callback]); // GET
+ *  router.put(uri_path, [controller_path|callback]); // PUT
+ *  router.del(uri_path, [controller_path|callback]); // DELETE
+ **/
+// we need to create a router instance
+var router = new pineapple.router.Router();
+
+// lets get a "Hello world" going
+router.get('/hello', function(request, response){
+  // if it isn't a valid request..
+  if (! request) {
+    return;
+  }
+  
+  // output some sanity
+  pineapple.api.logger.success("Got the request, emitting response..");
+
+  // response with a json response
+  response.json(pineapple.server.OK, new pineapple.server.http.JSONResponse(pineapple.server.OK, {
+    message  : "Hello world! I'm a pineapple api server."
+  }));
+
+  // Got the request now close the connection
+  pineapple.api.logger.warn("Closing connection..");
+
+  // close the connection
+  pineapple.api.close();
+
+  // warn pineapples departure
+  pineapple.logger.warn("Exiting pineapple..");
+
+  // exit..
+  // you never really have to call .exit() directly..
+  pineapple.exit();
+});
+
+// we need to bind the routes we just created to the server
+pineapple.api.bindRoutes(router.routes);
+
+// once all is said and done, we can finally start the server
+// the .listen() method accept a port and a callback for arguments
+pineapple.api.listen(serverConfig.port, function(){
+  // tap into pineapples api logger
+  pineapple.api.logger.info("Connected! =)");
+});
+```
+From the command line you can then execute the `app.js` file with `node`
+```sh
+$ node app.js
+[server] => Connected! =)
+```
+From the browser or another shell you could hit this url: `http://localhost:4000/hello`
+```sh
+$ curl http://localhost:4000/hello
+{"code":200,"status":true,"data":{"message":"Hello world! I'm a pineapple api server."}}
+```
+
+---
+
+
+![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png) Check it!
+===
+```sh
 $ curl http://localhost:4000
 {"code":200,"status":true,"data":{"method":"GET","resource":"/","message":"pineapple.controllers.pineapple.Api.index() was called."}}
 ```
 
+---
 
-### Basic app structure
+
+![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png) Starting a pineapple console
+===
 ```
+$ pineapple [console|c]
+Requiring app module /config/environment
+Requiring app module /config/development
+Requiring app module /config/application
+Requiring app module /config/routes.js
+Requiring app module /app/controllers
+Requiring app module /app/models
+[app] => Found the Paplfile file. => /Users/werle/repos/myapp/Paplfile
+[console] => Starting pineapple console..
+[console] => SUCCESS Have fun!
+Starting REPLConsole session with name pineapple with locale local
+pineapple-local> [server] => Listening on port 4000
+```
+
+
+---
+
+
+![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png) Basic app structure
+===
+```
+myapp/
 ├── Capfile
 ├── Jakefile
+├── Paplfile
 ├── Procfile
 ├── README.md
 ├── app
@@ -58,28 +194,15 @@ $ curl http://localhost:4000
 │   ├── environment.json
 │   ├── production.json
 │   └── routes.js
+├── index.js
 ├── log
 ├── package.json
-└── tests
+└── test
     └── app
         └── README.md
-```
 
-
-### Command line API
+8 directories, 18 files
 ```
-pineapple           - If executed from an application directory it will read your files and show you a usage prompt.
-pineapple update    - Installs all the necessary dependents for the Pineapple API Service.
-pineapple test      - <namespace> <suite> Execute test suites.
-pineapple server    - <command> Execute server commands
-pineapple help      - Display this message
-pineapple git       - <command> <args> Execute git commands on your current pineapple repository
-pineapple gen       - Generates a new pineapple api application.
-pineapple daemon    - Creates a daemon process for a Pineapple application.
-pineapple console   - [-f] Start a console with your Pineapple application
-pineapple app       - Display package information for the application.
-```
-
 
 Copyright and license
 ---------------------
@@ -99,5 +222,5 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 - - -
-pineapple(1) copyright 2012
-moovatom - joseph.werle@gmail.com
+**pineapple(1)** copyright 2012
+werle.io - joseph@werle.io
