@@ -263,7 +263,7 @@ Submit all bugs [here](https://github.com/jwerle/pineapple/issues/new)
 
 ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)Community
 ===
-Join the google group [here](https://groups.google.com/forum/?hl=en&fromgroups#!forum/pineapplej)
+Join the google group [here](https://groups.google.com/forum/?hl=en&fromgroups#!forum/pineapplejs)
 
 ---
 [top](#pineapple1)
