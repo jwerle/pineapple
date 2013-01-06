@@ -1,10 +1,10 @@
 ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-color-2-e1357499518266.png) ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-color-2-e1357499518266.png) ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-color-2-e1357499518266.png) ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-color-2-e1357499518266.png) 
-pineapple(1)
+pineapple
 ===============
 [![Build Status](https://travis-ci.org/jwerle/pineapple.png?branch=master)](https://travis-ci.org/jwerle/pineapple)
 
 A very simple, fun, and extendable RESTful API framework that includes routing and a model wrapper around MongoDB. 
-Built for MVC idealist with the intentions of just stepping out of the way and helping you get your data.
+Built for MVC idealists. A framework that just steps out of the way and helps you get your data.
 
 
 ---
@@ -45,7 +45,7 @@ $ [sudo] npm install -g pineapple
 ```
 
 ---
-[top](#pineapple1)
+[top](#pineapple)
 
 
 ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)Examples
@@ -54,7 +54,7 @@ $ [sudo] npm install -g pineapple
 * [myapp](https://github.com/jwerle/pineapple/examples/myapp) The application that was generated [here](#creating-a-new-app)
 
 ---
-[top](#pineapple1)
+[top](#pineapple)
 
 
 ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)Creating a new app
@@ -68,7 +68,7 @@ $ pineapple gen myapp
 ```
 
 ---
-[top](#pineapple1)
+[top](#pineapple)
 
 
 ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)Starting a pineapple server
@@ -179,7 +179,7 @@ $ curl http://localhost:4000/hello
 ```
 
 ---
-[top](#pineapple1)
+[top](#pineapple)
 
 
 ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)Check it!
@@ -190,7 +190,7 @@ $ curl http://localhost:4000
 ```
 
 ---
-[top](#pineapple1)
+[top](#pineapple)
 
 
 ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)Starting a pineapple console
@@ -212,7 +212,7 @@ pineapple-local> [server] => Listening on port 4000
 
 
 ---
-[top](#pineapple1)
+[top](#pineapple)
 
 
 ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)Basic app structure
@@ -250,7 +250,7 @@ myapp/
 ```
 
 ---
-[top](#pineapple1)
+[top](#pineapple)
 
 
 ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)Issues?
@@ -258,7 +258,7 @@ myapp/
 Submit all bugs [here](https://github.com/jwerle/pineapple/issues/new)
 
 ---
-[top](#pineapple1)
+[top](#pineapple)
 
 
 ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)Community
@@ -266,7 +266,7 @@ Submit all bugs [here](https://github.com/jwerle/pineapple/issues/new)
 Join the google group [here](https://groups.google.com/forum/?hl=en&fromgroups#!forum/pineapplejs)
 
 ---
-[top](#pineapple1)
+[top](#pineapple)
 
 
 Copyright and license
