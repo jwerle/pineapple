@@ -30,7 +30,24 @@ module.exports.call = function() {
       }
       else {
         exec(['cp -rf', tpl + '/*', dir].join(' '), function(error, stdout, stderr){
+          if (error) {
+            pineapple.logger.error(stderr);
+            pineapple.fatal("Something went wrong generating the app " + name);
+          }
+
           pineapple.logger.info("Sweet! I've created a new Pineapple application here => ".cyan + dir.blue);
+          pineapple.logger.warn("Going to grab all of those dependencies now..")
+          pineapple.logger.warn("This may take a while..");
+          process.chdir(dir);
+
+          exec('npm install .', function(error, stdout, stderr){
+            if (error) {
+              pineapple.logger.error(stderr);
+              pineapple.fatal("Something went wrong installing dependencies with npm for " + name);
+            }
+
+            pineapple.logger.success("All dependencies installed! =)");
+          });
         });
       }
     })
