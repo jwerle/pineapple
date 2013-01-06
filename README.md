@@ -9,11 +9,17 @@ Built for MVC idealist with the intentions of just stepping out of the way and h
 
 ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png) Install
 ===
-`pineapple` requires global installing for the cli utilitiy. If you do not plan on using pineapple to manage a pineapple
+`pineapple` requires global installation for the CLI utilitiy. If you do not plan on using pineapple to manage a pineapple
 application from the command line then using it as a local module is fine.
 ```sh
 $ [sudo] npm install -g pineapple
 ```
+
+---
+
+![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png) Examples
+===
+* [app](https://github.com/jwerle/pineapple/examples/app) The example found [here](#node)
 
 ---
 
@@ -203,6 +209,18 @@ myapp/
 
 8 directories, 18 files
 ```
+
+![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png) Issues?
+===
+Submit all bugs [here](https://github.com/jwerle/pineapple/issues/new)
+
+---
+
+![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png) Community
+===
+Join the google group [here](https://groups.google.com/forum/?hl=en&fromgroups#!forum/pineapplej)
+
+---
 
 Copyright and license
 ---------------------
