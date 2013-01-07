@@ -17,6 +17,7 @@ Built for MVC idealists. A framework that just steps out of the way and helps yo
 
 # Table of Contents
 * [Install](#install)
+* [Documentation](https://github.com/jwerle/pineapple/wiki)
 * [Examples](#examples)
 * [Creating a new application](#creating-a-new-app)
 * [Starting a Server](#starting-a-pineapple-server)
@@ -184,17 +185,6 @@ From the browser or from a program like [cURL](http://curl.haxx.se/docs/manpage.
 ```sh
 $ curl http://localhost:4000/hello
 {"code":200,"status":true,"data":{"message":"Hello world! I'm a pineapple api server."}}
-```
-
----
-[top](#pineapple)
-
-
-![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)Check it!
-===
-```sh
-$ curl http://localhost:4000
-{"code":200,"status":true,"data":{"method":"GET","resource":"/","message":"pineapple.controllers.pineapple.Api.index() was called."}}
 ```
 
 ---
