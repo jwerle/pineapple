@@ -33,7 +33,7 @@ Built for MVC idealists. A framework that just steps out of the way and helps yo
 ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)
 
 ---
-[top](#pineapple1)
+[top](#pineapple)
 
 
 ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)Install
