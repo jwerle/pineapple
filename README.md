@@ -50,8 +50,8 @@ $ [sudo] npm install -g pineapple
 
 ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)Examples
 ===
-* [app](https://github.com/jwerle/pineapple/examples/app) The example found [here](#node)
-* [myapp](https://github.com/jwerle/pineapple/examples/myapp) The application that was generated [here](#creating-a-new-app)
+* [app](https://github.com/jwerle/pineapple/tree/master/examples/app) The example found [here](#node)
+* [myapp](https://github.com/jwerle/pineapple/tree/master/examples/myapp) The application that was generated [here](#creating-a-new-app)
 
 ---
 [top](#pineapple1)
@@ -93,48 +93,55 @@ Requiring app module /app/models
 
 ## node
 You could utilize the pineapple module and create your own server without using a skeleton pineapple application.
-The contents of a possible `app.js` file below whose only dependency is `pineapple` demonstrates the process
+The contents of the `app.js` file below whose only dependency is `pineapple` demonstrates the process
 of using pineapple in node with minimal requirements. Consider the following app structure:
 ```sh
 ├── app.js
 └── node_modules
     └── pineapple (pineapple module)
 ```
-You could then use pinapple to create a server, bind routes, and listen on a port to start the service.
+You could then use pineapple to create a server, bind routes, and listen on a port to start the service.
 ```js
+// it isn't needed to store pineapple in a variable as it is attached
+// to the global object during its bootstrap
 require('pineapple');
+
+// define an app name 
+var appName = "myService";
+
 // server config
 var serverConfig = {
   port   : 4000, 
   config : { 
-    name : "myService" 
+    name : appName
   }
 };
+
+// Let pineapple no about your app name
+pineapple.app.name = appName;
 
 // we can create a server with minimal configuration
 pineapple.api.create(serverConfig);
 
 /**
- * In order for your server to work we will need some routers set up.
+ * In order for your server to work we will need some routes set up.
  * That can easily be achieved with pineapple's built in router.
  * 
- * The router supports basic POST, GET, PUT, and DELETE protocols via
+ * The Router supports basic POST, GET, PUT, and DELETE protocols via
  * convenience methods:
  *  router.post(uri_path, [controller_path|callback]); // POST
  *  router.get(uri_path, [controller_path|callback]); // GET
  *  router.put(uri_path, [controller_path|callback]); // PUT
  *  router.del(uri_path, [controller_path|callback]); // DELETE
+ *
+ * If you need to set a custom method you can call .create() directly:
+ *  router.create(CUSTOM_METHOD, uri_path, [controller_path|callback]);
  **/
 // we need to create a router instance
 var router = new pineapple.router.Router();
 
 // lets get a "Hello world" going
 router.get('/hello', function(request, response){
-  // if it isn't a valid request..
-  if (! request) {
-    return;
-  }
-  
   // output some sanity
   pineapple.api.logger.success("Got the request, emitting response..");
 
@@ -167,12 +174,13 @@ pineapple.api.listen(serverConfig.port, function(){
   pineapple.api.logger.info("Connected! =)");
 });
 ```
-From the command line you can then execute the `app.js` file with `node`
+From the command line you can then execute the `app.js` file with the `node` executable
+which will output something like this:
 ```sh
 $ node app.js
 [server] => Connected! =)
 ```
-From the browser or another shell you could hit this url: `http://localhost:4000/hello`
+From the browser or from a program like [cURL](http://curl.haxx.se/docs/manpage.html) you could hit the following url `http://localhost:4000/hello` while your app is running.
 ```sh
 $ curl http://localhost:4000/hello
 {"code":200,"status":true,"data":{"message":"Hello world! I'm a pineapple api server."}}
