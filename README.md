@@ -17,6 +17,7 @@ Built for MVC idealists. A framework that just steps out of the way and helps yo
 
 # Table of Contents
 * [Install](#install)
+* [Documentation](https://github.com/jwerle/pineapple/wiki)
 * [Examples](#examples)
 * [Creating a new application](#creating-a-new-app)
 * [Starting a Server](#starting-a-pineapple-server)
