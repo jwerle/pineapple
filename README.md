@@ -190,17 +190,6 @@ $ curl http://localhost:4000/hello
 [top](#pineapple)
 
 
-![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)Check it!
-===
-```sh
-$ curl http://localhost:4000
-{"code":200,"status":true,"data":{"method":"GET","resource":"/","message":"pineapple.controllers.pineapple.Api.index() was called."}}
-```
-
----
-[top](#pineapple)
-
-
 ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)Starting a pineapple console
 ===
 ```

@@ -52,6 +52,7 @@ preservedArgs = [].concat(args).slice(1)
 parser        = new parseopts.Parser(opts);
 
 parser.parse(args);
+pineapple.parser = parser;
 
 cmds = parser.cmds;
 opts = parser.opts;

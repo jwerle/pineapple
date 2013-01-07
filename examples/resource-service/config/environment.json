@@ -1,0 +1,17 @@
+{
+  "server" : {
+    "port"     : 4000,
+    "adapter"  : "restify",
+    "config"   : {
+      "name"      : "Pineapple",
+      "version"   : "1.0.0"
+    }  
+  },
+
+  "database" : {
+    "host"      : "localhost",
+    "adapter"   : "mongoose"
+  },
+
+  "env" : "development"
+}
