@@ -263,6 +263,8 @@ Submit all bugs [here](https://github.com/jwerle/pineapple/issues/new)
 ===
 Join the google group [here](https://groups.google.com/forum/?hl=en&fromgroups#!forum/pineapplejs)
 
+IRC? Hang out with us at #papl
+
 ---
 [top](#pineapple)
 
@@ -285,5 +287,5 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 - - -
-**pineapple(1)** copyright 2012
+**pineapple** copyright 2012
 werle.io - joseph@werle.io
