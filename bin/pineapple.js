@@ -5,7 +5,7 @@ require('colors');
 var opts, cmds, cmd, args, match, bin, binCommands, binNamespace, call
   , preservedArgs, exex, pwd, i, func, binOpts
 
-var parseopts = require('../deps/parseopts/lib/parseopts')
+var parseopts = require('../deps/parseopts')
 
 pwd           = process
 exec          = require('child_process').exec;
