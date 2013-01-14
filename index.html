@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <title>Pineapple by jwerle</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Pineapple</h1>
+        <h2>A very simple, fun, and extendable RESTful API framework that includes routing and a model wrapper around MongoDB. Built for MVC idealists. A framework that just steps out of the way and helps you get your data.</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/jwerle/pineapple/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/jwerle/pineapple/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/jwerle/pineapple" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <p>pineapple is a framework written by joseph werle for MoovAtom that provides an easy and extendable interface for developing restful apis. It was designed with an mvc pattern in mind and the idea that everything can be extended. Its main goal is to be lightweight and take care of the heavy lifting you would need to do when implementing a restful api from scratch.</p>
+
+<h1>Table of Contents</h1>
+
+<ul>
+<li><a href="#install">Install</a></li>
+<li><a href="https://github.com/jwerle/pineapple/wiki">Documentation</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#creating-a-new-app">Creating a new application</a></li>
+<li><a href="#starting-a-pineapple-server">Starting a Server</a></li>
+<li><a href="#starting-a-pineapple-console">Starting a Console</a></li>
+<li><a href="#basic-app-structure">Application Structure</a></li>
+<li><a href="#issues">Issues</a></li>
+<li><a href="#community">Community</a></li>
+<li><a href="#copyright-and-license">License</a></li>
+</ul><hr><p><a href="#pineapple">top</a></p>
+
+<h2>Installation</h2>
+
+<h1></h1>
+
+<p><code>pineapple</code> requires global installation for the CLI utilitiy. If you do not plan on using pineapple to manage a pineapple
+application from the command line then using it as a local module is fine.</p>
+
+<div class="highlight"><pre><span class="nv">$ </span><span class="o">[</span>sudo<span class="o">]</span> npm install -g pineapple
+</pre></div>
+
+<hr><p><a href="#pineapple">top</a></p>
+
+<h2>Creating a new application</h2>
+
+<h1></h1>
+
+<p><code>pineapple gen &lt;name&gt;</code></p>
+
+<p>Creating a pineapple application can easily be achieved with <code>pineapple gen</code></p>
+
+<div class="highlight"><pre><span class="nv">$ </span>pineapple gen myapp
+<span class="o">[</span>pineapple<span class="o">]</span> <span class="o">=</span>&gt; Sweet! I<span class="err">'</span>ve created a new Pineapple application <span class="nv">here</span> <span class="o">=</span>&gt; /Users/werle/repos/myapp
+</pre></div>
+
+<hr><p><a href="#pineapple">top</a></p>
+
+<h2>Starting a pineapple server</h2>
+
+<h1></h1>
+
+<p><code>pineapple server</code></p>
+
+<p>Starting a pineapple server of a pineapple application is as simple as executing <code>pineapple server</code> from the directory of
+the pineapple application.</p>
+
+<h4>shell</h4>
+
+<div class="highlight"><pre><span class="nv">$ </span>pineapple <span class="o">[</span>server|s<span class="o">]</span>
+Requiring app module /config/environment
+Requiring app module /config/development
+Requiring app module /config/application
+Requiring app module /config/routes.js
+Requiring app module /app/controllers
+Requiring app module /app/models
+<span class="o">[</span>app<span class="o">]</span> <span class="o">=</span>&gt; Found the Paplfile file. <span class="o">=</span>&gt; /Users/werle/repos/myapp/Paplfile
+<span class="o">[</span>server<span class="o">]</span> <span class="o">=</span>&gt; Listening on port 4000
+</pre></div>
+
+<h4>node</h4>
+
+<p>You could utilize the pineapple module and create your own server without using a skeleton pineapple application.
+The contents of the <code>app.js</code> file below whose only dependency is <code>pineapple</code> demonstrates the process
+of using pineapple in node with minimal requirements. Consider the following app structure:</p>
+
+<div class="highlight"><pre>├── app.js
+└── node_modules
+    └── pineapple <span class="o">(</span>pineapple module<span class="o">)</span>
+</pre></div>
+
+<p>You could then use pineapple to create a server, bind routes, and listen on a port to start the service.</p>
+
+<div class="highlight"><pre><span class="c1">// it isn't needed to store pineapple in a variable as it is attached</span>
+<span class="c1">// to the global object during its bootstrap</span>
+<span class="nx">require</span><span class="p">(</span><span class="s1">'pineapple'</span><span class="p">);</span>
+
+<span class="c1">// define an app name </span>
+<span class="kd">var</span> <span class="nx">appName</span> <span class="o">=</span> <span class="s2">"myService"</span><span class="p">;</span>
+
+<span class="c1">// server config</span>
+<span class="kd">var</span> <span class="nx">serverConfig</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">port</span>   <span class="o">:</span> <span class="mi">4000</span><span class="p">,</span> 
+  <span class="nx">config</span> <span class="o">:</span> <span class="p">{</span> 
+    <span class="nx">name</span> <span class="o">:</span> <span class="nx">appName</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// Let pineapple no about your app name</span>
+<span class="nx">pineapple</span><span class="p">.</span><span class="nx">app</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">appName</span><span class="p">;</span>
+
+<span class="c1">// we can create a server with minimal configuration</span>
+<span class="nx">pineapple</span><span class="p">.</span><span class="nx">api</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">serverConfig</span><span class="p">);</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * In order for your server to work we will need some routes set up.</span>
+<span class="cm"> * That can easily be achieved with pineapple's built in router.</span>
+<span class="cm"> * </span>
+<span class="cm"> * The Router supports basic POST, GET, PUT, and DELETE protocols via</span>
+<span class="cm"> * convenience methods:</span>
+<span class="cm"> *  router.post(uri_path, [controller_path|callback]); // POST</span>
+<span class="cm"> *  router.get(uri_path, [controller_path|callback]); // GET</span>
+<span class="cm"> *  router.put(uri_path, [controller_path|callback]); // PUT</span>
+<span class="cm"> *  router.del(uri_path, [controller_path|callback]); // DELETE</span>
+<span class="cm"> *</span>
+<span class="cm"> * If you need to set a custom method you can call .create() directly:</span>
+<span class="cm"> *  router.create(CUSTOM_METHOD, uri_path, [controller_path|callback]);</span>
+<span class="cm"> **/</span>
+<span class="c1">// we need to create a router instance</span>
+<span class="kd">var</span> <span class="nx">router</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">pineapple</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">Router</span><span class="p">();</span>
+
+<span class="c1">// lets get a "Hello world" going</span>
+<span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'/hello'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">){</span>
+  <span class="c1">// output some sanity</span>
+  <span class="nx">pineapple</span><span class="p">.</span><span class="nx">api</span><span class="p">.</span><span class="nx">logger</span><span class="p">.</span><span class="nx">success</span><span class="p">(</span><span class="s2">"Got the request, emitting response.."</span><span class="p">);</span>
+
+  <span class="c1">// response with a json response</span>
+  <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span><span class="nx">pineapple</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">OK</span><span class="p">,</span> <span class="k">new</span> <span class="nx">pineapple</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="nx">JSONResponse</span><span class="p">(</span><span class="nx">pineapple</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">OK</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">message</span>  <span class="o">:</span> <span class="s2">"Hello world! I'm a pineapple api server."</span>
+  <span class="p">}));</span>
+
+  <span class="c1">// Got the request now close the connection</span>
+  <span class="nx">pineapple</span><span class="p">.</span><span class="nx">api</span><span class="p">.</span><span class="nx">logger</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">"Closing connection.."</span><span class="p">);</span>
+
+  <span class="c1">// close the connection</span>
+  <span class="nx">pineapple</span><span class="p">.</span><span class="nx">api</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+
+  <span class="c1">// warn pineapples departure</span>
+  <span class="nx">pineapple</span><span class="p">.</span><span class="nx">logger</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">"Exiting pineapple.."</span><span class="p">);</span>
+
+  <span class="c1">// exit..</span>
+  <span class="c1">// you never really have to call .exit() directly..</span>
+  <span class="nx">pineapple</span><span class="p">.</span><span class="nx">exit</span><span class="p">();</span>
+<span class="p">});</span>
+
+<span class="c1">// we need to bind the routes we just created to the server</span>
+<span class="nx">pineapple</span><span class="p">.</span><span class="nx">api</span><span class="p">.</span><span class="nx">bindRoutes</span><span class="p">(</span><span class="nx">router</span><span class="p">.</span><span class="nx">routes</span><span class="p">);</span>
+
+<span class="c1">// once all is said and done, we can finally start the server</span>
+<span class="c1">// the .listen() method accept a port and a callback for arguments</span>
+<span class="nx">pineapple</span><span class="p">.</span><span class="nx">api</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">serverConfig</span><span class="p">.</span><span class="nx">port</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+  <span class="c1">// tap into pineapples api logger</span>
+  <span class="nx">pineapple</span><span class="p">.</span><span class="nx">api</span><span class="p">.</span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">"Connected! =)"</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>From the command line you can then execute the <code>app.js</code> file with the <code>node</code> executable
+which will output something like this:</p>
+
+<div class="highlight"><pre><span class="nv">$ </span>node app.js
+<span class="o">[</span>server<span class="o">]</span> <span class="o">=</span>&gt; Connected! <span class="o">=)</span>
+</pre></div>
+
+<p>From the browser or from a program like <a href="http://curl.haxx.se/docs/manpage.html">cURL</a> you could hit the following url <code>http://localhost:4000/hello</code> while your app is running.</p>
+
+<div class="highlight"><pre><span class="nv">$ </span>curl http://localhost:4000/hello
+<span class="o">{</span><span class="s2">"code"</span>:200,<span class="s2">"status"</span>:true,<span class="s2">"data"</span>:<span class="o">{</span><span class="s2">"message"</span>:<span class="s2">"Hello world! I'm a pineapple api server."</span><span class="o">}}</span>
+</pre></div>
+
+<hr><p><a href="#pineapple">top</a></p>
+
+<h1>Starting a pineapple console</h1>
+
+<pre><code>$ pineapple [console|c]
+Requiring app module /config/environment
+Requiring app module /config/development
+Requiring app module /config/application
+Requiring app module /config/routes.js
+Requiring app module /app/controllers
+Requiring app module /app/models
+[app] =&gt; Found the Paplfile file. =&gt; /Users/werle/repos/myapp/Paplfile
+[console] =&gt; Starting pineapple console..
+[console] =&gt; SUCCESS Have fun!
+Starting REPLConsole session with name pineapple with locale local
+pineapple-local&gt; [server] =&gt; Listening on port 4000
+</code></pre>
+
+<hr><p><a href="#pineapple">top</a></p>
+
+<h2>Structure</h2>
+
+<h1></h1>
+
+<pre><code>myapp/
+├── Capfile
+├── Jakefile
+├── Paplfile
+├── Procfile
+├── README.md
+├── app
+│   ├── controllers
+│   │   ├── index.js
+│   │   └── pineapple
+│   │       ├── Api.js
+│   │       └── index.js
+│   └── models
+│       └── index.js
+├── config
+│   ├── README.md
+│   ├── application.json
+│   ├── development.json
+│   ├── environment.json
+│   ├── production.json
+│   └── routes.js
+├── index.js
+├── log
+├── package.json
+└── test
+    └── app
+        └── README.md
+
+8 directories, 18 files
+</code></pre>
+
+<hr><p><a href="#pineapple">top</a></p>
+
+<h2>Issues?</h2>
+
+<h1></h1>
+
+<p>Submit all bugs <a href="https://github.com/jwerle/pineapple/issues/new">here</a></p>
+
+<hr><p><a href="#pineapple">top</a></p>
+
+<h2>Community</h2>
+
+<h1></h1>
+
+<p>Join the google group <a href="https://groups.google.com/forum/?hl=en&amp;fromgroups#!forum/pineapplejs">here</a></p>
+
+<p>IRC? Hang out with us at #papl</p>
+
+<hr><p><a href="#pineapple">top</a></p>
+
+<h2>Copyright and license</h2>
+
+<p>Copyright 2012</p>
+
+<p>Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this work except in compliance with the License.
+You may obtain a copy of the License in the LICENSE file, or at:</p>
+
+<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</p>
+
+<hr><p><strong>pineapple</strong> copyright 2012
+werle.io - <a href="mailto:joseph@werle.io">joseph@werle.io</a></p>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
