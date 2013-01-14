@@ -1,0 +1,347 @@
+diff --git a/bin/cmds/gen.js b/bin/cmds/gen.js
+index 10fc0e8..a0f9090 100644
+--- a/bin/cmds/gen.js
++++ b/bin/cmds/gen.js
+@@ -3,6 +3,10 @@ var path      = require('path')
+   , exec      = require('child_process').exec
+   , faker     = require('Faker')
+ 
++module.exports.opts = [
++  {full : 'no-deps', abbr: 'nd', args: false}
++];
++
+ module.exports.call = function() {
+   var args = this.utils.makeArray(arguments)
+     , name = args[0]
+@@ -35,19 +39,21 @@ module.exports.call = function() {
+             pineapple.fatal("Something went wrong generating the app " + name);
+           }
+ 
+-          pineapple.logger.info("Sweet! I've created a new Pineapple application here => ".cyan + dir.blue);
+-          pineapple.logger.warn("Going to grab all of those dependencies now..")
+-          pineapple.logger.warn("This may take a while..");
+-          process.chdir(dir);
++          if (!pineapple.parser.opts['no-deps']) {
++            pineapple.logger.warn("Going to grab all of those dependencies now..")
++            pineapple.logger.warn("This may take a while..");
++            process.chdir(dir);
++            exec('npm install .', function(error, stdout, stderr){
++              if (error) {
++                pineapple.logger.error(stderr);
++                pineapple.fatal("Something went wrong installing dependencies with npm for " + name);
++              }
+ 
+-          exec('npm install .', function(error, stdout, stderr){
+-            if (error) {
+-              pineapple.logger.error(stderr);
+-              pineapple.fatal("Something went wrong installing dependencies with npm for " + name);
+-            }
++              pineapple.logger.success("All dependencies installed! =)");
++            });
++          }
+ 
+-            pineapple.logger.success("All dependencies installed! =)");
+-          });
++          pineapple.logger.info("Sweet! I've created a new Pineapple application here => ".cyan + dir.blue);
+         });
+       }
+     })
+diff --git a/bin/cmds/server.js b/bin/cmds/server.js
+index 80896ca..72c7478 100644
+--- a/bin/cmds/server.js
++++ b/bin/cmds/server.js
+@@ -24,7 +24,7 @@ module.exports.call = function(){
+         pineapple.api.error(err.message);
+       }
+       else if (! isOpen) {
+-        pineapple.api.create(serverConfig).bindRoutes(pineapple.routes).listen(port, function(){
++        pineapple.api.create(serverConfig).bindRoutes(pineapple.app.router.routes).listen(port, function(){
+          pineapple.api.logger.info("Listening on port ".green + new String(port).cyan);
+          pineapple.api.emit('connected');
+         });
+diff --git a/bin/pineapple.js b/bin/pineapple.js
+index 2e00d5e..3f87d11 100755
+--- a/bin/pineapple.js
++++ b/bin/pineapple.js
+@@ -51,9 +51,14 @@ args          = process.argv.slice(2);
+ preservedArgs = [].concat(args).slice(1)
+ parser        = new parseopts.Parser(opts);
+ 
+-parser.parse(args);
+-pineapple.parser = parser;
+-
++try {
++  parser.parse(args);
++  pineapple.parser = parser;
++}
++catch (e) {
++  pineapple.logger.error(e.message);
++  pineapple.die();
++}
+ cmds = parser.cmds;
+ opts = parser.opts;
+ 
+diff --git a/config/routes.js b/config/routes.js
+index a91d74d..cddedf8 100644
+--- a/config/routes.js
++++ b/config/routes.js
+@@ -1,37 +1,3 @@
+-const API_VERSION = parseInt(pineapple.config.server.config.version);
+-
+ var router = new pineapple.router.Router()
+ 
+-// Prefix all routes with /v{VERSION} - uncomment line below to prefix all routes with an API version
+-// router.prefix('v' + API_VERSION);
+-
+-router.useMethods(['GET', 'POST', 'PUT', 'DEL']);
+-router.setDefaultAction('index');
+-
+-router.create('GET', '/', 'pineapple.Api.index');
+-router.get('/:resource', 'pineapple.Api'); // defaults to pineapple.Api.index
+-
+-/**
+-  Exmaple user routes
+-    Default action for bound results is
+-    set by router.setDefaultAction(action)
+-
+-// Catch all for '/user'
+-router.all('/user', 'user.User');
+-// OR
+-router.create('*', '/user', 'user.User');
+-
+-// Get user by uuid with a GET request
+-router.get('/user/:uuid', 'user.User.get');
+-// OR
+-router.create('GET', '/user/:uuid', 'user.User.get');
+-
+-// Basic CRUD methods which wrap router.create(method, path, bound);
+-router.post('/user', 'user.User.create');
+-router.get('/user/:uuid', 'user.User.get');
+-router.put('/user/:uuid', 'user.User.update');
+-router.del('/user/:uuid', 'user.User.delete');
+-
+-**/
+-
+-module.exports = router.routes;
++module.exports = router;
+\ No newline at end of file
+diff --git a/lib/controller/index.js b/lib/controller/index.js
+index 7a6a7db..830ffab 100644
+--- a/lib/controller/index.js
++++ b/lib/controller/index.js
+@@ -1 +1,21 @@
+-module.exports = pineapple.loader.load(__dirname).controller;
+\ No newline at end of file
++module.exports = pineapple.loader.load(__dirname).controller;
++module.exports.get = function(controller) {
++  var AppController
++    , Controller
++    , isController
++
++  AppController = typeof pineapple.controllers.Application === 'function' ? 
++                          pineapple.controllers.Application : function(){};
++
++  if (typeof controller === 'string') {
++    controller = pineapple.utils.valueFromPath(controller, pineapple.controllers);
++    isController = true;
++  }
++
++  if (typeof controller === 'function') {
++    Controller = pineapple.utils.inherit(pineapple.controller.Controller, controller);
++    Controller = pineapple.utils.inherit(AppController, Controller);
++  }
++
++  return {isController : isController, Controller : Controller};
++};
+\ No newline at end of file
+diff --git a/lib/model/Model.js b/lib/model/Model.js
+index adfa642..5b537c8 100644
+--- a/lib/model/Model.js
++++ b/lib/model/Model.js
+@@ -103,6 +103,16 @@ model.Model.prototype.field = function(definition) {
+   return this;
+ };
+ 
++model.Model.prototype.embeds = function(definition) {
++  var Model, model
++
++  for (var property in definition) {
++    definition[property] = (new (pineapple.utils.inherit(pineapple.model.Model, definition[property]))(pineapple.models)).create().schema
++  }
++
++  return this.field(definition);
++}
++
+ model.Model.prototype.create = function() {
+   var func, Model, self = this, i
+ 
+diff --git a/lib/pineapple/index.js b/lib/pineapple/index.js
+index f6d7675..02592d8 100644
+--- a/lib/pineapple/index.js
++++ b/lib/pineapple/index.js
+@@ -59,7 +59,7 @@ utils.PATH      = PINEAPPLE_PATH;
+ // Attach global loader
+ pineapple.loader = loader = new utils.Loader(__dirname)
+ 
+-if (utils.appStat('/config/environment.json')) {
++if (utils.appStat('/config/environment.json') || utils.appStat('/config/environment.js')) {
+   config = utils.appRequire('/config/environment')
+ }
+ else {
+@@ -76,7 +76,7 @@ else {
+   envConfig = require('../../config/' + envType)
+ }
+ 
+-if (utils.appStat('/config/application.json')) {
++if (utils.appStat('/config/application.json') || utils.appStat('/config/application.js')) {
+   appConfig = utils.appRequire('/config/application')
+ }
+ else {
+@@ -118,7 +118,7 @@ pineapple.passport = require('passport');
+ pineapple.VERSION = pkg.version
+ 
+ // Bind utilities
+-pineapple.utils    = utils;
++pineapple.utils = utils;
+ 
+ // Merge in config
+ pineapple.config      = utils.object.merge(config, envConfig);
+@@ -170,8 +170,8 @@ if (utils.appStat('/objects')) {
+ pineapple.console         = new Repl(pineapple.app.name, 'local');
+ pineapple.console.logger  = new pineapple.logger.Logger('console', pineapple.ABSOLUTE_PATH, '/log/console');
+ 
+-// Attach routes
+-pineapple.bindAppModule({ns: 'routes', localPath: '../../config/routes.js', appPath: '/config/routes.js'});
++// Attach router to pineapple.app
++pineapple.bindAppModule.call(pineapple.app, {ns: 'router', localPath: '../../config/routes.js', appPath: '/config/routes.js'});
+ 
+ // Attach app controllers
+ pineapple.bindAppModule({ns: 'controllers', localPath: '../../app/controllers', appPath: '/app/controllers'});
+diff --git a/lib/router/Router.js b/lib/router/Router.js
+index 1ea3291..d499806 100644
+--- a/lib/router/Router.js
++++ b/lib/router/Router.js
+@@ -50,6 +50,16 @@ router.Router.prototype.use = function(child) {
+   return this;
+ }
+ 
++router.Router.prototype.extend = function(method, handle) {
++  if (typeof method === 'string' && typeof handle === 'function') {
++    this[method] = (handle instanceof Function && handle.bind(this)) || function() {
++      return this.proxy(method, arguments);
++    };
++  }
++
++  return this;
++};
++
+ router.Router.prototype.create = function(method, route, bound) {
+   var self = this, match
+ 
+diff --git a/lib/server/Server.js b/lib/server/Server.js
+index 9bac877..22348ef 100644
+--- a/lib/server/Server.js
++++ b/lib/server/Server.js
+@@ -98,26 +98,17 @@ server.Server.prototype.bindRoutes = function(routes) {
+     !function(server, route, method) {
+       method.call(server, route.route, function(request, response, next){
+         var controller  = route.bound
+-          , action      = route.action
+-          , Controller  = null
+-          , mapped      = false
++          , action        = route.action
++          , Controller    = null
++          , c
+ 
+-        if (typeof controller === 'string') {
+-          controller = pineapple.utils.valueFromPath(controller, pineapple.controllers);
+-          mapped = true;
+-        }
+-
+-        if (typeof controller === 'function') {
+-          Controller = pineapple.utils.inherit(pineapple.controller.Controller, controller);
++        if ((controller = pineapple.controller.get(controller)) && controller.isController) {
++          c = new controller.Controller();
+ 
+-          if (mapped) {
+-            c = new Controller();
+-
+-            c[action](request, response, next);
+-          }
+-          else {
+-            Controller(request, response, next);
+-          }
++          c[action](request, response, next);
++        }
++        else { // just a function
++          controller.Controller(request, response, next);
+         }
+       });
+     }(this.server, route, method);
+diff --git a/package.json b/package.json
+index 1b3da62..d8c6a67 100644
+--- a/package.json
++++ b/package.json
+@@ -1,6 +1,6 @@
+   {
+   "name": "pineapple",
+-  "version": "0.2.7",
++  "version": "0.2.8",
+   "description": "A very simple and extendable RESTful API framework. Includes routing and a model wrapper around MongoDB.",
+   "keywords": [
+     "pineapple",
+diff --git a/tpl/config/production.json b/tpl/config/production.json
+index b2b4344..1a6a4c9 100644
+--- a/tpl/config/production.json
++++ b/tpl/config/production.json
+@@ -1,4 +1,8 @@
+ {
++  "server" : {
++    "port" : 80
++  },
++
+   "database" : {
+     "database" : "pineapple_production"
+   }
+diff --git a/tpl/config/routes.js b/tpl/config/routes.js
+index a91d74d..7d3f932 100644
+--- a/tpl/config/routes.js
++++ b/tpl/config/routes.js
+@@ -5,33 +5,8 @@ var router = new pineapple.router.Router()
+ // Prefix all routes with /v{VERSION} - uncomment line below to prefix all routes with an API version
+ // router.prefix('v' + API_VERSION);
+ 
+-router.useMethods(['GET', 'POST', 'PUT', 'DEL']);
+-router.setDefaultAction('index');
+-
+ router.create('GET', '/', 'pineapple.Api.index');
+-router.get('/:resource', 'pineapple.Api'); // defaults to pineapple.Api.index
+-
+-/**
+-  Exmaple user routes
+-    Default action for bound results is
+-    set by router.setDefaultAction(action)
+-
+-// Catch all for '/user'
+-router.all('/user', 'user.User');
+-// OR
+-router.create('*', '/user', 'user.User');
+-
+-// Get user by uuid with a GET request
+-router.get('/user/:uuid', 'user.User.get');
+-// OR
+-router.create('GET', '/user/:uuid', 'user.User.get');
+-
+-// Basic CRUD methods which wrap router.create(method, path, bound);
+-router.post('/user', 'user.User.create');
+-router.get('/user/:uuid', 'user.User.get');
+-router.put('/user/:uuid', 'user.User.update');
+-router.del('/user/:uuid', 'user.User.delete');
+-
+-**/
++router.get('/:resource', 'pineapple.Api.index');
+ 
+-module.exports = router.routes;
++// export the router which is bound to pineapple.app.router
++module.exports = router;
+\ No newline at end of file

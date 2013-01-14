@@ -3,6 +3,10 @@ var path      = require('path')
   , exec      = require('child_process').exec
   , faker     = require('Faker')
 
+module.exports.opts = [
+  {full : 'no-deps', abbr: 'nd', args: false}
+];
+
 module.exports.call = function() {
   var args = this.utils.makeArray(arguments)
     , name = args[0]
@@ -35,19 +39,21 @@ module.exports.call = function() {
             pineapple.fatal("Something went wrong generating the app " + name);
           }
 
+          if (!pineapple.parser.opts['no-deps']) {
+            pineapple.logger.warn("Going to grab all of those dependencies now..")
+            pineapple.logger.warn("This may take a while..");
+            process.chdir(dir);
+            exec('npm install .', function(error, stdout, stderr){
+              if (error) {
+                pineapple.logger.error(stderr);
+                pineapple.fatal("Something went wrong installing dependencies with npm for " + name);
+              }
+
+              pineapple.logger.success("All dependencies installed! =)");
+            });
+          }
+
           pineapple.logger.info("Sweet! I've created a new Pineapple application here => ".cyan + dir.blue);
-          pineapple.logger.warn("Going to grab all of those dependencies now..")
-          pineapple.logger.warn("This may take a while..");
-          process.chdir(dir);
-
-          exec('npm install .', function(error, stdout, stderr){
-            if (error) {
-              pineapple.logger.error(stderr);
-              pineapple.fatal("Something went wrong installing dependencies with npm for " + name);
-            }
-
-            pineapple.logger.success("All dependencies installed! =)");
-          });
         });
       }
     })

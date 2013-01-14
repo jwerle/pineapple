@@ -51,9 +51,14 @@ args          = process.argv.slice(2);
 preservedArgs = [].concat(args).slice(1)
 parser        = new parseopts.Parser(opts);
 
-parser.parse(args);
-pineapple.parser = parser;
-
+try {
+  parser.parse(args);
+  pineapple.parser = parser;
+}
+catch (e) {
+  pineapple.logger.error(e.message);
+  pineapple.die();
+}
 cmds = parser.cmds;
 opts = parser.opts;
 
