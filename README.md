@@ -83,7 +83,7 @@ the pineapple application.
 
 ## shell
 ```sh
-$ pineapple [server|s]
+$ pineapple server
 Requiring app module /config/environment
 Requiring app module /config/development
 Requiring app module /config/application
@@ -145,13 +145,16 @@ var router = new pineapple.router.Router();
 
 // lets get a "Hello world" going
 router.get('/hello', function(request, response){
+  var request  = this.request
+    , response = this.response
+    
   // output some sanity
   pineapple.api.logger.success("Got the request, emitting response..");
 
   // response with a json response
-  response.json(pineapple.server.OK, new pineapple.server.http.JSONResponse(pineapple.server.OK, {
+  this.json({
     message  : "Hello world! I'm a pineapple api server."
-  }));
+  });
 
   // Got the request now close the connection
   pineapple.api.logger.warn("Closing connection..");
@@ -196,7 +199,7 @@ $ curl http://localhost:4000/hello
 ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)Starting a pineapple console
 ===
 ```
-$ pineapple [console|c]
+$ pineapple console
 Requiring app module /config/environment
 Requiring app module /config/development
 Requiring app module /config/application
@@ -226,6 +229,7 @@ myapp/
 ├── README.md
 ├── app
 │   ├── controllers
+│   │   ├── Application.js
 │   │   ├── index.js
 │   │   └── pineapple
 │   │       ├── Api.js
@@ -240,13 +244,10 @@ myapp/
 │   ├── production.json
 │   └── routes.js
 ├── index.js
-├── log
 ├── package.json
 └── test
     └── app
         └── README.md
-
-8 directories, 18 files
 ```
 
 ---
