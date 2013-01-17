@@ -1,7 +1,0 @@
-{
-  "name" : "new-app",
-  "version" : "0.0.1",
-  "dependencies": {
-    "pineapple" : ">=0.2.x"
-  }
-}
