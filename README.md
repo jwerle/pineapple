@@ -5,9 +5,8 @@ http://pineapple.werle.io/
 
 [![Build Status](https://travis-ci.org/jwerle/pineapple.png?branch=master)](https://travis-ci.org/jwerle/pineapple)
 
-A very simple, fun, and extendable RESTful API framework that includes routing and a model wrapper around MongoDB. 
-Built for MVC idealists. A framework that just steps out of the way and helps you get your data.
-
+A MVC based, yet arguably liberal RESTful API framework. 
+Includes routing, controllers, models, utilities, and a MongoDB interface.
 
 ---
 
@@ -20,7 +19,6 @@ Built for MVC idealists. A framework that just steps out of the way and helps yo
 # Table of Contents
 * [Install](#install)
 * [Documentation](https://github.com/jwerle/pineapple/wiki)
-* [Examples](#examples)
 * [Creating a new application](#creating-a-new-app)
 * [Starting a Server](#starting-a-pineapple-server)
 * [Starting a Console](#starting-a-pineapple-console)
@@ -51,15 +49,6 @@ $ [sudo] npm install -g pineapple
 [top](#pineapple)
 
 
-![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)Examples
-===
-* [app](https://github.com/jwerle/pineapple/tree/master/examples/app) The example found [here](#node)
-* [myapp](https://github.com/jwerle/pineapple/tree/master/examples/myapp) The application that was generated [here](#creating-a-new-app)
-
----
-[top](#pineapple)
-
-
 ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)Creating a new app
 ===
 `pineapple gen <name>`
@@ -67,7 +56,9 @@ $ [sudo] npm install -g pineapple
 Creating a pineapple application can easily be achieved with `pineapple gen`
 ```sh
 $ pineapple gen myapp
-[pineapple] => Sweet! I've created a new Pineapple application here => /Users/werle/repos/myapp
+[pineapple] => Going to grab all of those dependencies now..
+[pineapple] => This may take a while..
+[pineapple] => Sweet! I've created a new Pineapple application here => /Users/werle/myapp
 ```
 
 ---
@@ -114,7 +105,6 @@ var appName = "myService";
 
 // server config
 var serverConfig = {
-  port   : 4000, 
   config : { 
     name : appName
   }
@@ -175,7 +165,7 @@ pineapple.api.bindRoutes(router.routes);
 
 // once all is said and done, we can finally start the server
 // the .listen() method accept a port and a callback for arguments
-pineapple.api.listen(serverConfig.port, function(){
+pineapple.api.listen(4000, function(){
   // tap into pineapples api logger
   pineapple.api.logger.info("Connected! =)");
 });
@@ -200,17 +190,31 @@ $ curl http://localhost:4000/hello
 ===
 ```
 $ pineapple console
-Requiring app module /config/environment
-Requiring app module /config/development
-Requiring app module /config/application
-Requiring app module /config/routes.js
-Requiring app module /app/controllers
-Requiring app module /app/models
-[app] => Found the Paplfile file. => /Users/werle/repos/myapp/Paplfile
-[console] => Starting pineapple console..
-[console] => SUCCESS Have fun!
-Starting REPLConsole session with name pineapple with locale local
-pineapple-local> [server] => Listening on port 4000
+...
+
+everybit-local> pineapple.models
+{ User: { [Function: User] super: [Function] },
+  Profile: { [Function: Profile] super: [Function] },
+  CreditCard: { [Function: CreditCard] super: [Function] },
+  Video: { [Function: Video] super: [Function] },
+  Version: { [Function: Version] super: [Function] },
+  Media: { [Function: Media] super: [Function] },
+  Image: { [Function: Image] super: [Function] },
+  Blurb: { [Function: Blurb] super: [Function] },
+  Audio: { [Function: Audio] super: [Function] },
+  user: 
+   { User: { [Function: User] super: [Function] },
+     Profile: { [Function: Profile] super: [Function] },
+     CreditCard: { [Function: CreditCard] super: [Function] } },
+  media: 
+   { Video: { [Function: Video] super: [Function] },
+     Version: { [Function: Version] super: [Function] },
+     Media: { [Function: Media] super: [Function] },
+     Image: { [Function: Image] super: [Function] },
+     Blurb: { [Function: Blurb] super: [Function] },
+     Audio: { [Function: Audio] super: [Function] } },
+  getSchema: [Function] }
+everybit-local> 
 ```
 
 
