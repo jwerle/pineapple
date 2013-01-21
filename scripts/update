@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 cmd="";
+if [ "$(whoami)" != "root" ]; then
+  echo "Need sudo";
+  exit 1;
+fi;
 
 command -v apt-get > /dev/null 2>&1 && {
   cmd="sudo apt-get";
@@ -16,17 +20,20 @@ command -v brew > /dev/null 2>&1 && {
 if [[ $cmd ]]; 
   then
     command -v ruby > /dev/null 2>&1 || {
+      echo "Installing latest ruby..";
       eval $cmd' install ruby';
     }
 fi;
 
 command -v gem > /dev/null 2>&1 && {
   command -v foreman > /dev/null 2>&1 || {
+    echo "Installing latest foreman gem..";
     sudo gem install foreman;
     exit;
   }
 }
 
 command -v npm > /dev/null 2>&1 && {
-  sudo npm update pineapple -g
+  echo "Installing latest pineapple..";
+  sudo npm install pineapple -g
 }

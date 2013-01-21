@@ -27,10 +27,8 @@ module.exports.call = function() {
 
     exec(['mkdir', dir].join(' '), function(error, stdout, stderr){
       if (error) {
-        console.error(error)
-      }
-      else if (stderr) {
-        console.error(stderr)
+        pineapple.logger.error(stderror);
+        pineapple.fatal("Something went wrong creating the app directory for " + name);
       }
       else {
         exec(['cp -rf', tpl + '/*', dir].join(' '), function(error, stdout, stderr){
@@ -40,8 +38,8 @@ module.exports.call = function() {
           }
 
           if (!pineapple.parser.opts['no-deps']) {
-            pineapple.logger.warn("Going to grab all of those dependencies now..")
-            pineapple.logger.warn("This may take a while..");
+            pineapple.logger.info("Going to grab all of those dependencies now..")
+            pineapple.logger.info("This may take a while..");
             process.chdir(dir);
             exec('npm install .', function(error, stdout, stderr){
               if (error) {
@@ -81,12 +79,11 @@ module.exports.call = function() {
 
         case 'exit' :
           pineapple.logger.info("Okay, okay. I get it. Maybe you should provide your own then.");
-          pineapple.logger.warn("I'm exiting..");
           pineapple.die();
         break;
 
         default : 
-          pineapple.logger.warn("Oops! Looks like that is a response I just don't understand.");
+          pineapple.logger.info("Oops! Looks like that is a response I just don't understand.");
           promptAppname();
         break;
       }

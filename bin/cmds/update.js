@@ -29,11 +29,17 @@ module.exports.call = function(){
         continue;
       }
 
-      if (!!~ stdout[i].toLowerCase().indexOf('err')) {
+      if (!!~ stdout[i].indexOf('ERR')) {
         pineapple.logger.error(stdout[i]);
       }
       else {
-        pineapple.logger.info(stdout[i]);
+        if (!!~ stdout[i].toLowerCase().trim().indexOf('need sudo')) {
+          pineapple.logger.error(stdout[i]);
+          pineapple.die();
+        }
+        else {
+          pineapple.logger.info(stdout[i]);
+        }
       }
     }
 

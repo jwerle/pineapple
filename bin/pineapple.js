@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-require('../lib/pineapple');
 require('colors');
 
 var opts, cmds, cmd, args, match, bin, binCommands, binNamespace, call
@@ -12,10 +11,17 @@ exec          = require('child_process').exec;
 binNamespace  = "pineapple";
 binCommands   = {};
 opts          = [
-  {full : 'port',     abbr: 'p'},
-  {full : 'env',      abbr: 'e'},
-  {full : 'version',  abbr: 'v'}
+  {full : 'port',      abbr: 'p'},
+  {full : 'env',       abbr: 'e'},
+  {full : 'version',   abbr: 'v'},
+  {full : 'fast-boot', abbr: 'fb', args:false},
 ];
+
+global.ARGS   = args = process.argv.slice(2);
+preservedArgs = [].concat(args).slice(1)
+global.parser = new parseopts.Parser(opts); // for pineapple bootstrap
+
+require('../lib/pineapple');
 
 bin = pineapple.loader.load(__dirname + '/cmds', false, ['pineapple']).cmds;
 
@@ -46,10 +52,6 @@ for (cmd in bin) {
 
   binCommands[cmd] = bin[cmd];
 }
-
-args          = process.argv.slice(2);
-preservedArgs = [].concat(args).slice(1)
-parser        = new parseopts.Parser(opts);
 
 try {
   parser.parse(args);

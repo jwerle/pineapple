@@ -97,6 +97,8 @@ parseopts.Parser.prototype = new function () {
 
     this.cmds = cmds;
     this.opts = opts;
+
+    return this;
   };
 
 };
