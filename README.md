@@ -19,6 +19,7 @@ Includes routing, controllers, models, utilities, and a MongoDB interface.
 # Table of Contents
 * [Install](#install)
 * [Documentation](https://github.com/jwerle/pineapple/wiki)
+* [Change Log](https://github.com/jwerle/pineapple/blob/master/CHANGELOG.md)
 * [Creating a new application](#creating-a-new-app)
 * [Starting a Server](#starting-a-pineapple-server)
 * [Starting a Console](#starting-a-pineapple-console)
