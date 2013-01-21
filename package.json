@@ -1,7 +1,7 @@
   {
   "name": "pineapple",
-  "version": "0.2.14",
-  "description": "A very simple and extendable RESTful API framework. Includes routing and a model wrapper around MongoDB.",
+  "version": "0.3.0",
+  "description": "A MVC based, yet arguably liberal RESTful API framework. Includes routing, controllers, models, utilities, and a MongoDB interface.",
   "keywords": [
     "pineapple",
     "api",
@@ -14,7 +14,8 @@
     "framework",
     "server",
     "restify",
-    "mongo"
+    "mongo",
+    "database"
   ],
   "preferGlobal" : true,
   "author": "Jospeh Werle <joseph.werle@gmail.com>",
