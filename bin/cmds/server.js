@@ -3,7 +3,7 @@ module.exports.opts = [
   {full : 'environment'},
   {full : 'no-server'}
 ];
-
+module.exports.needs  = 'server';
 module.exports.alias = 's';
 
 module.exports.call = function(){

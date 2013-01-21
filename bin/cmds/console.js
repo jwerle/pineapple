@@ -1,5 +1,6 @@
 module.exports.alias  = 'c'
 module.exports.deps   = ['server']
+module.exports.needs  = 'server';
 
 module.exports.call = function(){
   var args          = pineapple.utils.makeArray(arguments)

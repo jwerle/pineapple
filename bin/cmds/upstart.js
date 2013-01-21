@@ -1,5 +1,5 @@
 var fs = require('fs')
-
+module.exports.needs  = 'server';
 module.exports.call = function() {
   var args, upstart, description, path, cmd
 

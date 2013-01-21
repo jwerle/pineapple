@@ -31,6 +31,10 @@ if (pineapple.utils.appStat('/bin/cmds')) {
 
 // Load default bin files
 for (cmd in bin) {
+  if (bin[cmd].needs && bin[cmd].needs !== pineapple.TYPE) {
+    continue;
+  }
+
   binOpts = {
     full : cmd,
     abbr : cmd
