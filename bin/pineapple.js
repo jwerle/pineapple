@@ -112,10 +112,11 @@ bin   = pineapple.bin = binCommands;
 pineapple.namespace   = binNamespace;
 
 
-if (typeof (call = bin[cmd].call) === 'function') {
+if (typeof bin[cmd] === 'object' && typeof (call = bin[cmd].call) === 'function') {
   if (bin[cmd].deps && bin[cmd].deps.length) {
     for (i = 0; i < bin[cmd].deps.length; i++) {
-      if (typeof (func = bin[bin[cmd].deps[i]].call) === 'function') {
+      if (typeof bin[bin[cmd].deps[i]] === 'object' &&
+          typeof (func = bin[bin[cmd].deps[i]].call) === 'function') {
         func.apply(pineapple, args);
       }
     }
