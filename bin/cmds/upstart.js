@@ -22,6 +22,7 @@ module.exports.call = function() {
   }
 
   upstart = pineapple.utils.parseStringVariables(upstart, {
+    upstart_name        : name,
     upstart_description : description,
     upstart_path        : path,
     upstart_command     : cmd
