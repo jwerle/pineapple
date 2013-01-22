@@ -1,35 +1,41 @@
 var fs = require('fs')
+  , path = require('path')
+
 module.exports.needs  = 'server';
-module.exports.call = function() {
-  var args, upstart, description, path, cmd
+module.exports.call   = function() {
+  var args, upstart, upstart_description, upstart_path, upstart_command, upstart_destination, upstart_name
 
-  args        = this.utils.makeArray(arguments);
-  name        = args[0]
-  description = args[1];
-  path        = args[2];
-  cmd         = args[3];
+  args = this.utils.makeArray(arguments);
+  upstart_name          = args[0]
+  upstart_description   = args[1];
+  upstart_path          = args[2];
+  upstart_command       = args[3];
+  upstart_destination   = path.normalize(args[4] || '/etc/init');
+  upstart_destination   = upstart_destination + '/' + upstart_name + '.conf';
 
-  if (! name) {
+  pineapple.logger.info("upstart destination at " + upstart_destination);
+
+  if (! upstart_name) {
     pineapple.fatal("Upstart script needs a name.")
   }
 
   // Use default upstart script
-  if (description && path && cmd) {
+  if (upstart_description && upstart_path && upstart_command) {
     upstart = fs.readFileSync(pineapple.PATH + '/scripts/upstart.conf').toString();
   }
-  else if (pineapple.utils.stat(description)) { // Use one provided by first argument
-    upstart = fs.readFileSync(description);
+  else if (pineapple.utils.stat(upstart_description)) { // Use one provided by first argument
+    upstart = fs.readFileSync(upstart_description);
   }
 
   upstart = pineapple.utils.parseStringVariables(upstart, {
-    upstart_name        : name,
-    upstart_description : description,
-    upstart_path        : path,
-    upstart_command     : cmd
+    upstart_name        : upstart_name,
+    upstart_description : upstart_description,
+    upstart_path        : path.normalize(upstart_path),
+    upstart_command     : upstart_command
   });
 
   try {
-    fs.writeFileSync('/etc/init/' + name + '.conf', upstart);
+    fs.writeFileSync(upstart_destination, upstart);
   }
   catch (e) {
     pineapple.logger.error(e.message);
@@ -37,4 +43,6 @@ module.exports.call = function() {
   }
 }
 
-//module.exports.help
+module.exports.help = function(help) {
+  return help("upstart", "pineapple upstart <name> <description> <path> <command>");
+}
