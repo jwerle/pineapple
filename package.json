@@ -1,6 +1,6 @@
   {
   "name": "pineapple",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "A MVC based, yet arguably liberal RESTful API framework. Includes routing, controllers, models, utilities, and a MongoDB interface.",
   "keywords": [
     "pineapple",
