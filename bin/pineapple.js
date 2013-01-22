@@ -74,6 +74,11 @@ if (opts.version) {
 }
 
 if (opts.env) {
+  global.ENV_TYPE = opts.env;
+  pineapple['is' + ENV_TYPE.toProperCase()] = true;
+  pineapple.logger.info("Environment set as => " + ENV_TYPE.blue);
+  pineapple.logger.info("Check environment type with pineapple.is"+ ENV_TYPE.toProperCase());
+
   pineapple.config   = pineapple.utils.object.merge(pineapple.utils.appRequire('/config/environment'), pineapple.utils.appRequire('/config/' + opts.env));
 }
 
