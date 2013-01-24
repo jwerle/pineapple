@@ -17,5 +17,5 @@ module.exports.call = function(){
 };
 
 module.exports.help = function(help){
-  return help("console", "Start a console with your Pineapple app");
+  return help("console [c]", "Start a console with your Pineapple app");
 };

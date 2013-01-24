@@ -1,0 +1,14 @@
+#!/bin/bash
+
+os=$(uname)
+cmds=$(ls bin/cmds)
+echo $os
+if [ "$os" == "Darwin" ]; then
+  PREFIX="/usr/local"
+else
+  PREFIX="";
+fi;
+
+COMPLETE_PATH="$PREFIX/etc/bash_completion.d/"
+
+echo $cmds

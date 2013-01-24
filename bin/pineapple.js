@@ -11,10 +11,11 @@ exec          = require('child_process').exec;
 binNamespace  = "pineapple";
 binCommands   = {};
 opts          = [
-  {full : 'port',      abbr: 'p'},
-  {full : 'env',       abbr: 'e'},
-  {full : 'version',   abbr: 'v'},
-  {full : 'fast-boot', abbr: 'fb', args:false},
+  {full : 'port',         abbr: 'p'},
+  {full : 'env',          abbr: 'e'},
+  {full : 'version',      abbr: 'v'},
+  {full : 'extensions',   abbr: 'exts'},
+  {full : 'fast-boot',    abbr: 'fb', args:false},
 ];
 
 global.ARGS   = args = process.argv.slice(2);
@@ -80,6 +81,18 @@ if (opts.env) {
   pineapple.logger.info("Check environment type with pineapple.is"+ ENV_TYPE.toProperCase());
 
   pineapple.config   = pineapple.utils.object.merge(pineapple.utils.appRequire('/config/environment'), pineapple.utils.appRequire('/config/' + opts.env));
+}
+
+if (opts.extensions) {
+  opts.extensions = opts.extensions.split(',')
+  pineapple.on('extensions:ready', function(){
+    opts.extensions.map(function(extension){
+      if (pineapple[extension] instanceof Object && pineapple[extension].init instanceof Function) {
+        pineapple.extensions.logger.info("Initializing extension "+ extension.cyan)
+        pineapple[extension].init();
+      }
+    });
+  });
 }
 
 // Find any aliases

@@ -5,6 +5,9 @@ module.exports.opts = [
 ];
 module.exports.needs  = 'server';
 module.exports.alias = 's';
+module.exports.help = function(help){
+  return help("server [s]", "<command> Execute server commands");
+};
 
 module.exports.call = function(){
   var args          = pineapple.utils.makeArray(arguments)
@@ -36,8 +39,4 @@ module.exports.call = function(){
   }
 
   pineapple._db = pineapple.db.connect(dbConfig.host, db);
-};
-
-module.exports.help = function(help){
-  return help("server", "<command> Execute server commands");
 };

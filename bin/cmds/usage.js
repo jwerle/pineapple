@@ -1,7 +1,7 @@
 module.exports.alias = ['help', 'h', 'usage', '?']
 
 module.exports.help = function(help) {
-  return help('help', "Display this message");
+  return help('help [usage|h|?]', "Display this message");
 };
 
 module.exports.call = function(arg) {
@@ -39,6 +39,6 @@ module.exports.call = function(arg) {
 
 function helpDialog(name, usage) {
   return [
-    [pineapple.namespace.cyan, name.green, "-", usage].join(' ')
+    [pineapple.namespace.cyan, name.green, "\n\t  -", usage].join(' ')
   ].join('\n');
 }
