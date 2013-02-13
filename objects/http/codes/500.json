@@ -1,0 +1,6 @@
+{
+  "code"    : 500,
+  "status"  : false,
+  "type"    : "${type}", 
+  "message" : "${message}"
+}
