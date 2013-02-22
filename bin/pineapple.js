@@ -20,7 +20,6 @@ opts          = [
 
 global.ARGS   = args = process.argv.slice(2);
 preservedArgs = [].concat(args).slice(1)
-global.parser = new parseopts.Parser(opts); // for pineapple bootstrap
 
 require('../lib/pineapple');
 
@@ -58,6 +57,7 @@ for (cmd in bin) {
   binCommands[cmd] = bin[cmd];
 }
 
+global.parser = new parseopts.Parser(opts); // for pineapple bootstrap
 try {
   parser.parse(args);
   pineapple.parser = parser;
