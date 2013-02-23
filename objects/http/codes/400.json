@@ -1,6 +1,5 @@
 {
   "code"    : 400,
   "status"  : false,
-  "type"    : "BadRequest",
-  "message" : "${message}"
+  "type"    : "BadRequest"
 }
