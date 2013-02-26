@@ -6,3 +6,5 @@ pineapple change log
 - Models are retrieved with `pineapple.model.get(modelName)`
 - Controllers defined with `pineapple.controller.define(function <name>(){})` 
 - Controllers are retrieved with `pineapple.controller.get(controllerName)`
+
+## v0.4.0
