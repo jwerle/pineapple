@@ -8,3 +8,4 @@ pineapple change log
 - Controllers are retrieved with `pineapple.controller.get(controllerName)`
 
 ## v0.4.0
+-
