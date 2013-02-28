@@ -1,6 +1,14 @@
 #!/usr/bin/env node
 require('colors');
+console.log([
+"             \\".green+ "||" +"/".green,
+"             \\".green+ "||" +"/".green,
+"           .<><><>.".green,
+"          .<><><><>.".green,
+"          '<><><><>'".green,
+"pineapple".cyan+ "  '<><><>'".green,
 
+].join('\n'));
 var opts, cmds, cmd, args, match, bin, binCommands, binNamespace, call
   , preservedArgs, exex, pwd, i, func, binOpts
 
