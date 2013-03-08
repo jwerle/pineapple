@@ -14,10 +14,7 @@ module.exports.call = function(){
     , port          = pineapple.config.server.port
     , dbConfig      = pineapple.config.database 
     , db            = dbConfig.database
-    , formats       = pineapple.server.formatters.get()
-    , serverConfig  = {
-      formatters : formats
-    }
+    , serverConfig  = {}
 
 
   serverConfig = pineapple.utils.object.merge(serverConfig, pineapple.config.server.config)
