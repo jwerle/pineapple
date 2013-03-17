@@ -97,7 +97,10 @@ if (opts.extensions) {
     opts.extensions.map(function(extension){
       if (pineapple[extension] instanceof Object && pineapple[extension].init instanceof Function) {
         pineapple.extensions.logger.info("Initializing extension "+ extension.cyan)
-        pineapple[extension].init();
+        var config = (pineapple.config.extensions && typeof pineapple.config.extensions[extension] === 'object')
+                      ? pineapple.config.extensions[extension] : {};
+        pineapple.extensions.logger.info(['(', extension, ')', ,' - ', JSON.stringify(config)].join(''))
+        pineapple[extension].init(config);
       }
     });
   });
