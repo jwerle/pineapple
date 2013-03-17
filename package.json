@@ -1,6 +1,6 @@
   {
   "name": "pineapple",
-  "version": "0.3.22",
+  "version": "0.3.23",
   "description": "A MVC based, yet arguably liberal RESTful API framework. Includes routing, controllers, models, utilities, and a MongoDB interface.",
   "keywords": [
     "pineapple",
@@ -48,7 +48,7 @@
     "url": "git://github.com/jwerle/pineapple.git"
   },
   "engines": {
-    "node": ">= 0.8.x"
+    "node": ">= 0.10.x"
   },
   "contributors": [
     "Travis Donia",
