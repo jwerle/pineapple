@@ -37,7 +37,7 @@
     "Faker"         : "0.1.3",
     "architect"     : "0.1.8",
     "pkginfo"       : "0.2.x",
-    "async"         : "0.2.x",
+    "async"         : "0.2.x"
   },
   "scripts" : {
     "test" : "./bin/pineapple.js test"
