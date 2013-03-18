@@ -1,6 +1,6 @@
   {
   "name": "pineapple",
-  "version": "0.3.23",
+  "version": "0.3.24",
   "description": "A MVC based, yet arguably liberal RESTful API framework. Includes routing, controllers, models, utilities, and a MongoDB interface.",
   "keywords": [
     "pineapple",
@@ -38,7 +38,6 @@
     "architect"     : "0.1.8",
     "pkginfo"       : "0.2.x",
     "async"         : "0.2.x",
-    "fibers"        : "1.x.x"
   },
   "scripts" : {
     "test" : "./bin/pineapple.js test"
