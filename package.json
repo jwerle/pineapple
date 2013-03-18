@@ -38,8 +38,7 @@
     "architect"     : "0.1.8",
     "pkginfo"       : "0.2.x",
     "async"         : "0.2.x",
-    "fibers"        : "1.x.x",
-    "socket.io"     : "0.9.x"
+    "fibers"        : "1.x.x"
   },
   "scripts" : {
     "test" : "./bin/pineapple.js test"
