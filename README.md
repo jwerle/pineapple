@@ -1,20 +1,17 @@
-![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-color-2-e1357499518266.png) ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-color-2-e1357499518266.png) ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-color-2-e1357499518266.png) ![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-color-2-e1357499518266.png) 
 pineapple
 ===============
+
 http://pineapple.werle.io/
 
 [![Build Status](https://travis-ci.org/jwerle/pineapple.png?branch=master)](https://travis-ci.org/jwerle/pineapple)
 
+
 A MVC based, yet arguably liberal RESTful API framework. 
 Includes routing, controllers, models, utilities, and a MongoDB interface.
 
----
+# NO LONGER SUPPORTED
 
-![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)
-![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)
-![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)
-![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)
-![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)
+---
 
 # Table of Contents
 * [Install](#install)
@@ -28,17 +25,11 @@ Includes routing, controllers, models, utilities, and a MongoDB interface.
 * [Community](#community)
 * [License](#copyright-and-license)
 
-![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)
-![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)
-![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)
-![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)
-![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)
-
 ---
 [top](#pineapple)
 
 
-![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)Install
+## Install
 ===
 `pineapple` requires global installation for the CLI utilitiy. If you do not plan on using pineapple to manage a pineapple
 application from the command line then using it as a local module is fine.
@@ -50,7 +41,7 @@ $ [sudo] npm install -g pineapple
 [top](#pineapple)
 
 
-![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)Creating a new app
+## Creating a new app
 ===
 `pineapple gen <name>`
 
@@ -66,7 +57,7 @@ $ pineapple gen myapp
 [top](#pineapple)
 
 
-![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)Starting a pineapple server
+## Starting a pineapple server
 ===
 `pineapple server`
 
@@ -187,7 +178,7 @@ $ curl http://localhost:4000/hello
 [top](#pineapple)
 
 
-![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)Starting a pineapple console
+## Starting a pineapple console
 ===
 ```
 $ pineapple console
@@ -223,7 +214,7 @@ everybit-local>
 [top](#pineapple)
 
 
-![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)Basic app structure
+## Basic app structure
 ===
 ```
 myapp/
@@ -259,7 +250,7 @@ myapp/
 [top](#pineapple)
 
 
-![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)Issues?
+## Issues?
 ===
 Submit all bugs [here](https://github.com/jwerle/pineapple/issues/new)
 
@@ -267,7 +258,7 @@ Submit all bugs [here](https://github.com/jwerle/pineapple/issues/new)
 [top](#pineapple)
 
 
-![pineapple](http://werle.io/wp-content/uploads/2013/01/pineapple-slice-e1357498911716.png)Community
+## Community
 ===
 Join the google group [here](https://groups.google.com/forum/?hl=en&fromgroups#!forum/pineapplejs)
 
