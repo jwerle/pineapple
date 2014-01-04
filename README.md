@@ -11,8 +11,6 @@ Includes routing, controllers, models, utilities, and a MongoDB interface.
 
 # NO LONGER SUPPORTED
 
----
-
 # Table of Contents
 * [Install](#install)
 * [Documentation](https://github.com/jwerle/pineapple/wiki)
@@ -25,14 +23,11 @@ Includes routing, controllers, models, utilities, and a MongoDB interface.
 * [Community](#community)
 * [License](#copyright-and-license)
 
----
-[top](#pineapple)
-
-
 ## Install
-===
+
 `pineapple` requires global installation for the CLI utilitiy. If you do not plan on using pineapple to manage a pineapple
 application from the command line then using it as a local module is fine.
+
 ```sh
 $ [sudo] npm install -g pineapple
 ```
@@ -42,10 +37,11 @@ $ [sudo] npm install -g pineapple
 
 
 ## Creating a new app
-===
+
 `pineapple gen <name>`
 
 Creating a pineapple application can easily be achieved with `pineapple gen`
+
 ```sh
 $ pineapple gen myapp
 [pineapple] => Going to grab all of those dependencies now..
@@ -58,13 +54,14 @@ $ pineapple gen myapp
 
 
 ## Starting a pineapple server
-===
+
 `pineapple server`
 
 Starting a pineapple server of a pineapple application is as simple as executing `pineapple server` from the directory of
 the pineapple application.
 
 ## shell
+
 ```sh
 $ pineapple server
 Requiring app module /config/environment
@@ -78,15 +75,19 @@ Requiring app module /app/models
 ```
 
 ## node
+
 You could utilize the pineapple module and create your own server without using a skeleton pineapple application.
 The contents of the `app.js` file below whose only dependency is `pineapple` demonstrates the process
 of using pineapple in node with minimal requirements. Consider the following app structure:
+
 ```sh
 ├── app.js
 └── node_modules
     └── pineapple (pineapple module)
 ```
+
 You could then use pineapple to create a server, bind routes, and listen on a port to start the service.
+
 ```js
 // it isn't needed to store pineapple in a variable as it is attached
 // to the global object during its bootstrap
@@ -137,19 +138,6 @@ router.get('/hello', function(request, response){
   this.json({
     message  : "Hello world! I'm a pineapple api server."
   });
-
-  // Got the request now close the connection
-  pineapple.api.logger.warn("Closing connection..");
-
-  // close the connection
-  pineapple.api.close();
-
-  // warn pineapples departure
-  pineapple.logger.warn("Exiting pineapple..");
-
-  // exit..
-  // you never really have to call .exit() directly..
-  pineapple.exit();
 });
 
 // we need to bind the routes we just created to the server
@@ -157,18 +145,18 @@ pineapple.api.bindRoutes(router.routes);
 
 // once all is said and done, we can finally start the server
 // the .listen() method accept a port and a callback for arguments
-pineapple.api.listen(4000, function(){
-  // tap into pineapples api logger
-  pineapple.api.logger.info("Connected! =)");
-});
+pineapple.api.listen(4000);
 ```
+
 From the command line you can then execute the `app.js` file with the `node` executable
 which will output something like this:
+
 ```sh
 $ node app.js
-[server] => Connected! =)
 ```
+
 From the browser or from a program like [cURL](http://curl.haxx.se/docs/manpage.html) you could hit the following url `http://localhost:4000/hello` while your app is running.
+
 ```sh
 $ curl http://localhost:4000/hello
 {"code":200,"status":true,"data":{"message":"Hello world! I'm a pineapple api server."}}
@@ -177,9 +165,8 @@ $ curl http://localhost:4000/hello
 ---
 [top](#pineapple)
 
-
 ## Starting a pineapple console
-===
+
 ```
 $ pineapple console
 ...
@@ -209,13 +196,12 @@ everybit-local> pineapple.models
 everybit-local> 
 ```
 
-
 ---
 [top](#pineapple)
 
 
 ## Basic app structure
-===
+
 ```
 myapp/
 ├── Capfile
@@ -249,24 +235,21 @@ myapp/
 ---
 [top](#pineapple)
 
-
 ## Issues?
-===
+
 Submit all bugs [here](https://github.com/jwerle/pineapple/issues/new)
 
 ---
 [top](#pineapple)
 
-
 ## Community
-===
+
 Join the google group [here](https://groups.google.com/forum/?hl=en&fromgroups#!forum/pineapplejs)
 
 IRC? Hang out with us at #papl
 
 ---
 [top](#pineapple)
-
 
 Copyright and license
 ---------------------
@@ -286,5 +269,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 - - -
+
 **pineapple** copyright 2012
 werle.io - joseph@werle.io
